@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><customers>
+  <customer id="1.0" email="igkkly19@jirpjgdmxwmv.de" password="fq6JmTFn" role_id="customer" category="B" salutation="M." first_name="Serge" last_name="Martin" birth_date="1970-11-30">
+    <addresses>
+      <address line1="Highland Street 21" line2="55992 ZUMBROTA" line3="United States"/>
+      <address line1="Birch Street 26" line2="65457 DEVILS ELBOW" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="2.0" email="amezpnjt7@vzollxompc.at" password="7MyhserN" role_id="customer" category="C" salutation="Mme" first_name="Martine" last_name="Girard" birth_date="1995-11-21">
+    <addresses>
+      <address line1="Third Street 26" line2="24915 ARBOVALE" line3="United States"/>
+      <address line1="Maple Street 5" line2="38271 WOODLAND MILLS" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="3.0" email="rdpywn57@yymystcjjrf.at" password="Vvw9ZPncBS" role_id="customer" category="A" salutation="Mme" first_name="Francoise" last_name="Morel" birth_date="2010-10-19">
+    <addresses>
+      <address line1="Valley Street 4" line2="44275 SPENCER" line3="United States"/>
+      <address line1="Fifth Street 46" line2="5773 WALLINGFORD" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="4.0" email="koyqwf2@epwypcxzhsk.ch" password="Lus9ghO4xi" role_id="customer" category="C" salutation="M." first_name="Olivier" last_name="Moreau" birth_date="1980-09-29">
+    <addresses>
+      <address line1="Lake Street 41" line2="82936 LONTETREE" line3="United States"/>
+      <address line1="Broadway Street 36" line2="58529 CARSON" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="5.0" email="kzvbyj51@welvheanrgd.at" password="zVgEwWyl" role_id="customer" category="C" salutation="Mme" first_name="Elodie" last_name="Leroy" birth_date="2006-12-20">
+    <addresses>
+      <address line1="Pine Street 17" line2="16054 SAINT PETERSBURG" line3="United States"/>
+      <address line1="Ridge Street 9" line2="14126 OLCOTT" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="6.0" email="ujnijbew4@amynqbjowbc.org" password="83BD4wW5Io" role_id="customer" category="A" salutation="M." first_name="Claude" last_name="Bernard" birth_date="2008-12-17">
+    <addresses>
+      <address line1="North Street 46" line2="77861 IOLA" line3="United States"/>
+      <address line1="Johnson Street 8" line2="81124 CAPULIN" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="7.0" email="juhcc33@smeujzsxywdp.at" password="jmnaRAaW" role_id="customer" category="C" salutation="M." first_name="Andre" last_name="Richard" birth_date="1971-08-22">
+    <addresses>
+      <address line1="Adams Street 19" line2="28385 SALEMBURG" line3="United States"/>
+      <address line1="Franklin Street 36" line2="71373 VIDALIA" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="8.0" email="yabhps35@dbxdgiypj.at" password="aR6U5TOhl" role_id="customer" category="C" salutation="Mme" first_name="Josette" last_name="Bertrand" birth_date="2010-01-08">
+    <addresses>
+      <address line1="3rd Street 33" line2="42410 EARLINGTON" line3="United States"/>
+      <address line1="3rd Street 44" line2="12148 REXFORD" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="9.0" email="styzuidb03@hhpylthxkx.de" password="JS0LXnIaM" role_id="customer" category="A" salutation="Mme" first_name="Jeannine" last_name="Lefèvre" birth_date="1972-03-19">
+    <addresses>
+      <address line1="Lincoln Street 25" line2="17762 PICTURE ROCKS" line3="United States"/>
+      <address line1="Lincoln Street 15" line2="46166 PARAGON" line3="United States"/>
+    </addresses>
+  </customer>
+  <customer id="10.0" email="amzymk3@gogesmhzg.com" password="KeBRRvJA" role_id="customer" category="C" salutation="Mme" first_name="Denise" last_name="Simon" birth_date="1989-03-03">
+    <addresses>
+      <address line1="Lake Street 47" line2="31071 PINEVIEW" line3="United States"/>
+      <address line1="Main Street 15" line2="49309 BITELY" line3="United States"/>
+    </addresses>
+  </customer>
+</customers>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://erdprt.org/DefaultStructure" xmlns:tns="http://erdprt.org/DefaultStructure" elementFormDefault="qualified">
+
+    <element name="Message" type="tns:MessageType"></element>
+
+    <complexType name="MessageType">
+    	<sequence>
+    		<element name="MetaData" type="tns:MetaDataType" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Body" type="tns:BodyType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="MetaDataType">
+    	<sequence>
+    		<element name="from" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="to" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="contentType" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="BodyType">
+    		<sequence>
+        		<element name="person" type="tns:PersonType" maxOccurs="unbounded" minOccurs="1" />
+        	</sequence>
+    </complexType>
+
+    <complexType name="PersonType">
+    	<sequence>
+    		<element name="civilStatus" type="tns:CivilStatusType"></element>
+    		<element name="address" type="tns:AddressType"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="CivilStatusType">
+    	<sequence>
+    		<element name="lastName" type="string"></element>
+    		<element name="firstName" type="string"></element>
+    		<element name="civility" type="string"></element>
+    		<element name="birthDate" type="date"></element>
+    		<element name="nationality" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="AddressType">
+    	<sequence>
+    		<element name="street" type="string"></element>
+    		<element name="city" type="string"></element>
+    		<element name="zipCode" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ContractType"></complexType>
+
+</schema>

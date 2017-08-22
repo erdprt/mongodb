@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+	defaultEncoding="UTF-8">
+
+
+	<include uri="configuration.properties" />
+
+	<!--
+	<bean id="Message_xml" class="org.databene.platform.xml.XMLEntityExporter">
+		<property name="uri"
+			value="{ftl:${output_dir}/Message_${person_count}units.xml}" />
+	</bean>
+	<generate type="Message" count="1" consumer="Message_xml">
+		<generate type="MetaData" count="1" consumer="Message_xml">
+			<generate name="from" count="1" consumer="Message_xml">
+			</generate>
+			<generate type="to" count="1" consumer="Message_xml" />
+			<generate type="contentType" count="1" consumer="Message_xml" />
+		</generate>
+		<consumer class="org.databene.platform.script.ScriptedEntityExporter">
+			<property name="uri" value="transactions.xml" />
+		</consumer>
+	</generate>
+	-->
+    <generate type="transaction" count="10">
+        <variable name="product" type="entity" source="products.import.csv" distribution="random"/>
+        <attribute name="id" type="long" />
+        <attribute name="ean_code" script="product.ean_code"/>
+        <attribute name="price" script="product.price"/>
+        <attribute name="items" type="short" min="1" max="27"/>
+        <consumer class="org.databene.platform.script.ScriptedEntityExporter">
+            <property name="uri" value="transactions.xml"/>
+            <property name="headerScript" value="src/main/resources/descriptors/person/transaction_xml_header.ftl"/>
+            <property name="partScript" value="src/main/resources/descriptors/person/transaction_xml_part.ftl"/>
+            <property name="footerScript" value="src/main/resources/descriptors/person/transaction_xml_footer.ftl"/>
+        </consumer>
+    </generate>
+	
+</setup>
+	

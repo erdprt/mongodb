@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<setup	xmlns="http://databene.org/benerator/0.5.9"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://databene.org/benerator/0.5.9 http://databene.org/benerator-0.5.9.xsd">
+
+	<import defaults="true"/>
+	
+    <bean id="datetimegenerator" class="org.databene.benerator.primitive.datetime.DateTimeGenerator"> 
+    	<property name="minDate" value="2008-01-01"/>
+    	<property name="maxDate" value="2008-01-10"/>
+    	<property name="datePrecision" value="1970-01-02 09:00:00"/>
+    	<property name="dateDistribution" value="random"/>
+    	<property name="minTime" value="09:00:00"/>
+    	<property name="maxTime" value="18:00:00"/>
+    	<property name="timePrecision" value="00:00:01"/>
+    	<property name="timeDistribution" value="cumulated"/>    	
+	</bean>
+
+	<bean id="addressescsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="./src/main/output/address.csv"/>
+            <property name="properties" value="ADDRESS_ID,OBJ_VERSION,STREET,ZIPCODE,CITY"/>
+            <property name="separator" value=","/>		
+	</bean>
+
+	<bean id="userscsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="./src/main/output/user.csv"/>
+            <property name="properties" value="USER_ID,OBJ_VERSION,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,
+            									EMAIL,RANK,IS_ADMIN,CREATED,DEFAULT_BILLING_DETAILS_ID,
+            									HOME_STREET,HOME_ZIPCODE,HOME_CITY"/>
+            <property name="separator" value=","/>		
+	</bean>
+
+	    <create-entities name="addresses" count="10" consumer="addressescsv">
+	        <variable  name="address" generator="org.databene.domain.address.AddressGenerator"/>
+	        
+	        <attribute name="ADDRESS_ID" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+			<attribute name="OBJ_VERSION" values="1" />	        
+			<attribute name="STREET" script="{${address.street}}" />
+			<attribute name="ZIPCODE" script="{${address.zipCode}}" />
+			<attribute name="CITY" script="{${address.city}}" />
+		</create-entities>
+
+	    <create-entities name="users" count="5" consumer="userscsv">
+	        <variable  name="person" generator="org.databene.domain.person.PersonGenerator"/>
+	        <variable  name="email" generator="org.databene.domain.net.EMailAddressGenerator"/>
+	        <variable  name="addressHome" generator="org.databene.domain.address.AddressGenerator"/>
+	        
+	        <attribute name="USER_ID" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+			<attribute name="OBJ_VERSION" values="10" />	        
+			<attribute name="FIRSTNAME" script="{${person.familyName}}" />
+			<attribute name="LASTNAME" script="{${person.givenName}}" />
+			<attribute name="USERNAME" script="{${person.givenName}.${person.familyName}}" />
+			<attribute name="PASSWORD" script="{${person.givenName}}" />
+			<attribute name="EMAIL" script="{${person.givenName}.${person.familyName}@gmail.com}" />
+			<attribute name="RANK" type="int" min="1" max="25" distribution="random"/>
+			<attribute name="IS_ADMIN" type="int" min="0" max="1" distribution="random" />
+			<attribute name="CREATED" nullable="false" generator="CurrentDateTimeGenerator"/>
+			<attribute name="DEFAULT_BILLING_DETAILS_ID" values="50" />
+			<attribute name="HOME_STREET" script="{${addressHome.street}}" />
+			<attribute name="HOME_ZIPCODE" script="{${addressHome.zipCode}}" />
+			<attribute name="HOME_CITY" script="{${addressHome.city}}" />
+		</create-entities>
+
+
+
+</setup>
