@@ -1,0 +1,10 @@
+MongoDB shell version v3.5.8
+connecting to: mongodb://localhost:3200/admin
+MongoDB server version: 3.5.8
+{
+	"info" : "run rs.initiate(...) if not yet done for the set",
+	"ok" : 0,
+	"errmsg" : "no replset config has been received",
+	"code" : 94,
+	"codeName" : "NotYetInitialized"
+}

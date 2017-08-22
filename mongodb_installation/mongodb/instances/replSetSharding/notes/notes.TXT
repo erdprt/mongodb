@@ -1,0 +1,40 @@
+Connect to client
+mongo.exe localhost:3000/admin
+Add shard:
+db.runCommand( { addshard : "127.0.0.1:3200", allowLocal : true } )
+db.runCommand( { addshard : "127.0.0.1:3201", allowLocal : true } )
+
+db.runCommand( { addshard : "localhost:3200", allowLocal : true } )
+db.runCommand( { addshard : "localhost:3201", allowLocal : true } )
+
+db.runCommand( { addshard : "127.0.0.1:3200", allowLocal : true , name : "shard01"} )
+db.runCommand( { addshard : "127.0.0.1:3300", allowLocal : true, name : "shard02" } )
+
+Sharding database customers:
+db.runCommand({"enablesharding" : "db_sharding"})
+Shard key:
+db.runCommand({ shardcollection : "db_sharding.persons", key : {lastName : 1}})
+db.runCommand({ shardcollection : "db_sharding.persons", key : {_id: 1}})
+
+use db_sharding
+db.persons.stats()
+
+delete all documents from collection
+db.persons.remove()
+
+print information on sharding:
+db.printShardingStatus();
+
+Replicat set
+cfg = { _id: "replSet1", members: [{_id: 0, host: "localhost:3200"},{_id: 1, host: "localhost:3201"}]};
+rs.initiate(cfg); 
+
+cfg = { _id: "replSet1", members: [{_id: 0, host: "localhost:3200"},{_id: 1, host: "localhost:3201"}] };
+
+---- replicacommands
+db.printReplicationInfo()
+db.printSlaveReplicationInfo()
+
+-----general commands
+db.serverStatus()
+db.stats()

@@ -1,0 +1,1 @@
+call instance_clean.bat instance1

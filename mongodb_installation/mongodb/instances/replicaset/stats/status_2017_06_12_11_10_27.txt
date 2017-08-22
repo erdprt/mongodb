@@ -1,0 +1,127 @@
+MongoDB shell version v3.5.8
+connecting to: mongodb://localhost:3200/admin
+MongoDB server version: 3.5.8
+{
+	"set" : "replSet",
+	"date" : ISODate("2017-06-12T09:10:28.738Z"),
+	"myState" : 1,
+	"term" : NumberLong(1),
+	"heartbeatIntervalMillis" : NumberLong(2000),
+	"optimes" : {
+		"lastCommittedOpTime" : {
+			"ts" : Timestamp(1497258621, 1),
+			"t" : NumberLong(1)
+		},
+		"appliedOpTime" : {
+			"ts" : Timestamp(1497258621, 1),
+			"t" : NumberLong(1)
+		},
+		"durableOpTime" : {
+			"ts" : Timestamp(1497258621, 1),
+			"t" : NumberLong(1)
+		}
+	},
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "localhost:3200",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 225,
+			"optime" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2017-06-12T09:10:21Z"),
+			"infoMessage" : "could not find member to sync from",
+			"electionTime" : Timestamp(1497258609, 1),
+			"electionDate" : ISODate("2017-06-12T09:10:09Z"),
+			"configVersion" : 1,
+			"self" : true
+		},
+		{
+			"_id" : 1,
+			"name" : "localhost:3205",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 30,
+			"optime" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2017-06-12T09:10:21Z"),
+			"optimeDurableDate" : ISODate("2017-06-12T09:10:21Z"),
+			"lastHeartbeat" : ISODate("2017-06-12T09:10:27.867Z"),
+			"lastHeartbeatRecv" : ISODate("2017-06-12T09:10:27.714Z"),
+			"pingMs" : NumberLong(0),
+			"syncingTo" : "localhost:3200",
+			"configVersion" : 1
+		},
+		{
+			"_id" : 2,
+			"name" : "localhost:3210",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 30,
+			"optime" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2017-06-12T09:10:21Z"),
+			"optimeDurableDate" : ISODate("2017-06-12T09:10:21Z"),
+			"lastHeartbeat" : ISODate("2017-06-12T09:10:26.874Z"),
+			"lastHeartbeatRecv" : ISODate("2017-06-12T09:10:27.714Z"),
+			"pingMs" : NumberLong(0),
+			"syncingTo" : "localhost:3200",
+			"configVersion" : 1
+		},
+		{
+			"_id" : 3,
+			"name" : "localhost:3215",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 30,
+			"optime" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1497258621, 1),
+				"t" : NumberLong(1)
+			},
+			"optimeDate" : ISODate("2017-06-12T09:10:21Z"),
+			"optimeDurableDate" : ISODate("2017-06-12T09:10:21Z"),
+			"lastHeartbeat" : ISODate("2017-06-12T09:10:26.874Z"),
+			"lastHeartbeatRecv" : ISODate("2017-06-12T09:10:27.712Z"),
+			"pingMs" : NumberLong(0),
+			"syncingTo" : "localhost:3200",
+			"configVersion" : 1
+		},
+		{
+			"_id" : 4,
+			"name" : "localhost:3220",
+			"health" : 1,
+			"state" : 7,
+			"stateStr" : "ARBITER",
+			"uptime" : 30,
+			"lastHeartbeat" : ISODate("2017-06-12T09:10:27.867Z"),
+			"lastHeartbeatRecv" : ISODate("2017-06-12T09:10:24.450Z"),
+			"pingMs" : NumberLong(0),
+			"configVersion" : 1
+		}
+	],
+	"ok" : 1,
+	"operationTime" : Timestamp(1497258621, 1)
+}

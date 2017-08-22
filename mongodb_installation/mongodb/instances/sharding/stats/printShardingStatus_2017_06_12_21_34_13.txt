@@ -1,0 +1,41 @@
+MongoDB shell version v3.5.8
+connecting to: mongodb://localhost:3000/admin
+MongoDB server version: 3.5.8
+--- Sharding Status --- 
+  sharding version: {
+	"_id" : 1,
+	"minCompatibleVersion" : 5,
+	"currentVersion" : 6,
+	"clusterId" : ObjectId("593eec5b855f46a82e4cc610")
+}
+  shards:
+	{  "_id" : "shard0000",  "host" : "localhost:3200",  "state" : 1 }
+	{  "_id" : "shard0001",  "host" : "localhost:3205",  "state" : 1 }
+	{  "_id" : "shard0002",  "host" : "localhost:3210",  "state" : 1 }
+  active mongoses:
+	"3.5.8" : 1
+ autosplit:
+	Currently enabled: yes
+  balancer:
+	Currently enabled:  yes
+	Currently running:  no
+	Failed balancer rounds in last 5 attempts:  0
+	Migration Results for the last 24 hours: 
+		2 : Success
+  databases:
+	{  "_id" : "dbShardingTest",  "primary" : "shard0000",  "partitioned" : true }
+		dbShardingTest.persons
+			shard key: { "_id" : "hashed" }
+			unique: false
+			balancing: true
+			chunks:
+				shard0000	2
+				shard0001	2
+				shard0002	2
+			{ "_id" : { "$minKey" : 1 } } -->> { "_id" : NumberLong("-6148914691236517204") } on : shard0000 Timestamp(3, 2) 
+			{ "_id" : NumberLong("-6148914691236517204") } -->> { "_id" : NumberLong("-3074457345618258602") } on : shard0000 Timestamp(3, 3) 
+			{ "_id" : NumberLong("-3074457345618258602") } -->> { "_id" : NumberLong(0) } on : shard0001 Timestamp(3, 4) 
+			{ "_id" : NumberLong(0) } -->> { "_id" : NumberLong("3074457345618258602") } on : shard0001 Timestamp(3, 5) 
+			{ "_id" : NumberLong("3074457345618258602") } -->> { "_id" : NumberLong("6148914691236517204") } on : shard0002 Timestamp(3, 6) 
+			{ "_id" : NumberLong("6148914691236517204") } -->> { "_id" : { "$maxKey" : 1 } } on : shard0002 Timestamp(3, 7) 
+
