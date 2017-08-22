@@ -1,0 +1,101 @@
+suppid;name;status;addr1;addr2;city;state;zip;phone
+1;supplier-1;O;Cedar Street;Locust Street;EAST IRVINE;California;92650;+1-949-1682405
+2;supplier-2;,;Pine Street;Washington Street;COULTERVILLE;Illinois;62237;+1-618-1726934
+3;supplier-3;,;Elm Street;Railroad Street;LEBANON;Oklahoma;73440;+1-580-4947381
+4;supplier-4;O;Locust Street;Oak Street;WHITING;Indiana;46394;+1-219-0994285
+5;supplier-5;O;Pine Street;Green Street;SAXE;Virginia;23967;+1-804-5852366
+6;supplier-6;O;Elm Street;13th Street;RINARD;Iowa;50587;+1-515-6871030
+7;supplier-7;,;Central Street;Valley Street;SAN FERNANDO;California;91341;+1-818-4219619
+8;supplier-8;';15th Street;Washington Street;ARDEN;North Carolina;28704;+1-828-0307034
+9;supplier-9;O;Hillcrest Street;Maple Street;TITUSVILLE;New Jersey;8560;+1-609-8879365
+10;supplier-10;K;Pine Street;Hickory Street;COKEVILLE;Wyoming;83114;+1-307-6923885
+11;supplier-11;K;7th Street;Eighth Street;MARYSVALE;Utah;84750;+1-435-5818488
+12;supplier-12;';12th Street;10th Street;MEYERSVILLE;Texas;77974;+1-512-3951990
+13;supplier-13;';Willow Street;First Street;BUFFALO GROVE;Illinois;60089;+1-847-5249000
+14;supplier-14;O;North Street;Lakeview Street;MOORPARK;California;93020;+1-805-7681303
+15;supplier-15;';Cedar Street;Fifth Street;MARICAO;Puerto Rico;606;+1-787-0422578
+16;supplier-16;,;Railroad Street;Highland Street;FOSTER;Oklahoma;73434;+1-580-1624523
+17;supplier-17;K;Hill Street;Broadway Street;TETERBORO;New Jersey;7608;+1-201-2465492
+18;supplier-18;K;Woodland Street;Hill Street;CHIPPEWA LAKE;Ohio;44215;+1-330-3917263
+19;supplier-19;K;Johnson Street;East Street;CADYVILLE;New York;12918;+1-518-8144791
+20;supplier-20;';13th Street;Sycamore Street;ROSSVILLE;Pennsylvania;17358;+1-717-7134429
+21;supplier-21;,;Willow Street;Dogwood Street;DELMONT;South Dakota;57330;+1-605-7635196
+22;supplier-22;K;13th Street;Third Street;WARRINGTON;Pennsylvania;18976;+1-215-4828879
+23;supplier-23;O;Pine Street;Ridge Street;VAN BUREN POINT;New York;14166;+1-716-4269666
+24;supplier-24;,;Hill Street;Fourth Street;FINLEY;Oklahoma;74543;+1-580-2895210
+25;supplier-25;,;Jefferson Street;Central Street;DEAVER;Wyoming;82421;+1-307-6076879
+26;supplier-26;,;First Street;10th Street;BAILEYVILLE;Maine;4694;+1-207-6004009
+27;supplier-27;K;1st Street;Main Street;LITTLE ROCK;South Carolina;29567;+1-843-6076753
+28;supplier-28;';Center Street;Elm Street;FLINTSTONE;Georgia;30725;+1-706-9345826
+29;supplier-29;O;Hillcrest Street;Lee Street;CLARENCE;New York;14031;+1-716-6088860
+30;supplier-30;';4th Street;8th Street;DEER RIVER;Minnesota;56636;+1-218-7876920
+31;supplier-31;O;Church Street;4th Street;ARENAS VALLEY;New Mexico;88022;+1-505-6581023
+32;supplier-32;O;Center Street;Spring Street;MILLADORE;Wisconsin;54454;+1-715-5278429
+33;supplier-33;K;Dogwood Street;7th Street;WEST TOWNSEND;Massachusetts;1474;+1-978-1435817
+34;supplier-34;K;Main Street;Spring Street;RIMROCK;Arizona;86335;+1-520-3768922
+35;supplier-35;,;View Street;Thirteenth Street;NEW CUYAMA;California;93254;+1-805-0485369
+36;supplier-36;,;Broadway Street;Hickory Street;NALLEN;West Virginia;26680;+1-304-6845997
+37;supplier-37;O;Eighth Street;Miller Street;GREENDELL;New Jersey;7839;+1-973-2828432
+38;supplier-38;';Lee Street;Forest Street;LYLES;Tennessee;37098;+1-931-7103331
+39;supplier-39;O;Church Street;Maple Street;LEESBURG;Indiana;46538;+1-219-7931359
+40;supplier-40;,;Lincoln Street;Sixth Street;BALDWIN CITY;Kansas;66006;+1-785-6696408
+41;supplier-41;O;Elm Street;Franklin Street;SONNETTE;Montana;59348;+1-406-1023678
+42;supplier-42;K;Hillcrest Street;River Street;AVELLA;Pennsylvania;15312;+1-724-9350386
+43;supplier-43;O;Pine Street;Locust Street;SAINT GEORGE;South Carolina;29477;+1-843-6884499
+44;supplier-44;K;Smith Street;Center Street;EAST TALLASSEE;Alabama;36023;+1-334-8071572
+45;supplier-45;K;Maple Street;Taylor Street;GRAY COURT;South Carolina;29645;+1-864-2523409
+46;supplier-46;,;1st Street;Miller Street;LAGUNA PARK;Texas;76644;+1-0-906217764
+47;supplier-47;';Davis Street;Main Street;FREMONT;Nebraska;68025;+1-402-0793035
+48;supplier-48;';Laurel Street;First Street;HUMACAO;Puerto Rico;791;+1-787-9518283
+49;supplier-49;,;East Street;Center Street;ELKHORN;Wisconsin;53121;+1-414-0946571
+50;supplier-50;O;Wilson Street;Spruce Street;CAPTIVA;Florida;33924;+1-941-6111312
+51;supplier-51;';Hill Street;Jackson Street;LOCUST GROVE;Oklahoma;74352;+1-918-1533593
+52;supplier-52;';Lakeview Street;Park Street;CLARA CITY;Minnesota;56222;+1-320-7060486
+53;supplier-53;';13th Street;Eleventh Street;ALPHA;Ohio;45301;+1-937-9670232
+54;supplier-54;O;8th Street;Laurel Street;GLENFORD;Ohio;43739;+1-740-0104623
+55;supplier-55;';Main Street;6th Street;MOUNTAIN PINE;Arkansas;71956;+1-501-0876644
+56;supplier-56;,;Adams Street;8th Street;OAKWOOD;Virginia;24631;+1-540-8245254
+57;supplier-57;K;Cedar Street;Johnson Street;YOUNGSVILLE;New York;12791;+1-914-9450081
+58;supplier-58;,;Mill Street;11th Street;EARLY;Iowa;50535;+1-712-1543198
+59;supplier-59;';Fourth Street;12th Street;SUPLEE;Pennsylvania;19371;+1-610-2079334
+60;supplier-60;O;Sunset Street;Main Street;VICTOR;Iowa;52347;+1-319-2606835
+61;supplier-61;,;Third Street;Ash Street;BEAR BRANCH;Kentucky;41714;+1-606-6254774
+62;supplier-62;O;Franklin Street;Sunset Street;PONTIAC;Missouri;65729;+1-417-9276483
+63;supplier-63;K;North Street;Church Street;MIDDLETON;Massachusetts;1949;+1-978-9987543
+64;supplier-64;';Ridge Street;North Street;PENDLETON;Kentucky;40055;+1-502-2086235
+65;supplier-65;';3rd Street;Center Street;RUTLAND;Iowa;50582;+1-515-2798101
+66;supplier-66;';Smith Street;Walnut Street;LILLIAN;Texas;76061;+1-817-9898347
+67;supplier-67;,;Jefferson Street;Walnut Street;BRAZEAU;Missouri;63737;+1-573-9929947
+68;supplier-68;,;Sixth Street;Adams Street;MARY D;Pennsylvania;17952;+1-717-9659548
+69;supplier-69;O;Oak Street;First Street;MONROE;Iowa;50170;+1-515-4334651
+70;supplier-70;K;Jackson Street;7th Street;MEDFORD;New Jersey;8055;+1-609-5503437
+71;supplier-71;';Second Street;Park Street;PINELAND;Texas;75968;+1-409-8380223
+72;supplier-72;,;7th Street;Birch Street;BELVIDERE;South Dakota;57521;+1-605-8088621
+73;supplier-73;,;Willow Street;Broadway Street;RAVIA;Oklahoma;73455;+1-580-5780853
+74;supplier-74;';Davis Street;Hickory Street;SHAVER LAKE;California;93664;+1-559-9348625
+75;supplier-75;';Elm Street;2nd Street;MILLERSBURG;Kentucky;40348;+1-606-0258526
+76;supplier-76;,;Sunset Street;Willow Street;WASHINGTON;Georgia;30673;+1-706-7264186
+77;supplier-77;';Main Street;Johnson Street;MONTGOMERY CITY;Missouri;63361;+1-573-2213473
+78;supplier-78;K;11th Street;4th Street;TESUQUE;New Mexico;87574;+1-505-6051211
+79;supplier-79;K;Lincoln Street;Park Street;CENTERVILLE;Georgia;31028;+1-912-2218203
+80;supplier-80;';Second Street;Hillcrest Street;GRANTSBURG;Illinois;62943;+1-618-3583416
+81;supplier-81;';Wilson Street;4th Street;GREAT FALLS;Virginia;22066;+1-703-2291782
+82;supplier-82;,;Maple Street;Green Street;HICKORY;Kentucky;42051;+1-502-0556140
+83;supplier-83;';Madison Street;Seventh Street;SHERRILL;Iowa;52073;+1-319-2656707
+84;supplier-84;';Third Street;Locust Street;MATTHEWS;North Carolina;28106;+1-704-2245664
+85;supplier-85;';4th Street;8th Street;DAMASCUS;Virginia;24236;+1-540-1746927
+86;supplier-86;O;4th Street;Meadow Street;SILVER CITY;Nevada;89428;+1-702-0413487
+87;supplier-87;';2nd Street;Ridge Street;LAKEWOOD;Ohio;44107;+1-216-0416203
+88;supplier-88;O;Johnson Street;Spruce Street;ELDRED;New York;12732;+1-914-5324334
+89;supplier-89;';Third Street;Cedar Street;AMBOY;Illinois;61310;+1-815-6167131
+90;supplier-90;';Main Street;Meadow Street;THORNDALE;Pennsylvania;19372;+1-610-6998591
+91;supplier-91;,;12th Street;Davis Street;ALVERTON;Pennsylvania;15612;+1-724-6177350
+92;supplier-92;O;Park Street;13th Street;METCALFE;Mississippi;38760;+1-601-0140393
+93;supplier-93;K;Park Street;East Street;AYDLETT;North Carolina;27916;+1-252-8369497
+94;supplier-94;';13th Street;Sixth Street;NEWFANE;New York;14108;+1-716-7797874
+95;supplier-95;,;South Street;Woodland Street;ENDICOTT;Nebraska;68350;+1-402-0916744
+96;supplier-96;O;Chestnut Street;Lincoln Street;BOBTOWN;Pennsylvania;15315;+1-724-9820740
+97;supplier-97;K;Mill Street;Poplar Street;UNCASVILLE;Connecticut;6382;+1-860-4892217
+98;supplier-98;K;Woodland Street;Lakeview Street;BURRTON;Kansas;67020;+1-316-2705441
+99;supplier-99;O;Center Street;10th Street;ANATONE;Washington;99401;+1-509-8032488
+100;supplier-100;O;Oak Street;Laurel Street;BRONSON;Iowa;51007;+1-712-6067545

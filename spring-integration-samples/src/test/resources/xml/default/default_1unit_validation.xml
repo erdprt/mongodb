@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="http://erdprt.org/PersonStructure">
+	<MetaData>
+		<from>applicationA</from>
+		<to>applicationB</to>
+		<contentType>xml</contentType>
+	</MetaData>
+	<Body>
+		<persons count="1">
+			<person id="fbbd6c3c-5fc7-4006-a8c5-7eda4f6377ee" lastName="lastName-0"
+				firstName="firName-0" civility="M" birthDate="2012-12-31T18:24:10.161+01:00"
+				nationality="USA" street="street-0" city="Rennes" zipCode="75002" />
+		</persons>
+	</Body>
+</Message>

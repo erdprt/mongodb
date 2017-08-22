@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8" defaultPageSize="1000">
+
+
+	<import defaults="true" />
+	<include
+		uri="configuration.properties" />
+
+	<bean id="REF_CATEGORY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/REF_CATEGORY.csv}" />
+		<property name="columns"
+			value="REF_CAT_ID,REF_CAT_LABEL,REF_CAT_DESC,TRA_CREATED,TRA_UPDATED" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="REF_PRODUCT" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/REF_PRODUCT.csv}" />
+		<property name="columns"
+			value="REF_PROD_ID,REF_PROD_CODE,REF_PROD_LABEL,TRA_CREATED,TRA_UPDATED,REF_CAT_ID,REF_PROD_STA_ID" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="REF_INVENTORY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/REF_INVENTORY.csv}" />
+		<property name="columns"
+			value="REF_INV_ID,REF_INV_PRICE,REF_INV_AVAILABLE,TRA_CREATED,TRA_UPDATED,REF_INV_QUANTITY,REF_PROD_ID" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="REF_CATEGORY_ENTITIES" count="{REF_CATEGORY_COUNT}"
+		consumer="REF_CATEGORY">
+
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="REF_CAT_ID" script="{ftl:CAT${idgen}}" />
+		<attribute name="REF_CAT_LABEL" script="{ftl:LABEL FOR CATEGORY ${idgen}}" />
+		<attribute name="REF_CAT_DESC" script="{ftl:DESCRIPTION FOR CATEGORY ${idgen}}" />
+		<attribute name="TRA_CREATED" pattern="{timestamp_pattern}" />
+		<attribute name="TRA_UPDATED" pattern="{timestamp_pattern}" />
+	</generate>
+
+	<generate type="REF_PRODUCT_ENTITIES" count="{REF_PRODUCT_COUNT}"
+		consumer="REF_PRODUCT">
+
+		<attribute name="REF_CAT_ID_FK" type="int" min="{idMin}" max="{REF_CATEGORY_COUNT}"  distribution="random"/>
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="REF_PROD_ID" script="{ftl:${idgen}}"/>
+		<attribute name="REF_PROD_CODE" script="{ftl:PROD${idgen}}" />
+		<attribute name="REF_PROD_LABEL" script="{ftl:LABEL FOR PRODUCT ${idgen}}" />
+		<attribute name="TRA_CREATED" pattern="{timestamp_pattern}" />
+		<attribute name="TRA_UPDATED" pattern="{timestamp_pattern}" />
+		<attribute name="REF_CAT_ID" script="{ftl:CAT${REF_PRODUCT_ENTITIES.REF_CAT_ID_FK}}" />
+		<attribute name="REF_PROD_STA_ID" values="1" />
+	</generate>
+
+	<generate type="REF_INVENTORY_ENTITIES" count="{REF_INVENTORY_COUNT}"
+		consumer="REF_INVENTORY">
+
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="REF_INV_ID" script="{ftl:${idgen}}"/>
+		<attribute name="REF_INV_PRICE"  pattern="{float_pattern}" />
+		<attribute name="REF_INV_AVAILABLE" values="true" />
+		<attribute name="TRA_CREATED" pattern="{timestamp_pattern}" />
+		<attribute name="TRA_UPDATED" pattern="{timestamp_pattern}" />
+		<attribute name="REF_INV_QUANTITY" pattern="{quantity_pattern}" />
+		<attribute name="REF_PROD_ID" script="{REF_INVENTORY_ENTITIES.REF_INV_ID}" />
+	</generate>
+
+</setup>
+

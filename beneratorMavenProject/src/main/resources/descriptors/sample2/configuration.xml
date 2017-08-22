@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+<include uri="configuration.properties" />
+
+	<!-- 
+    <bean id="dategenerator" class="org.databene.benerator.primitive.datetime.DateGenerator"> 
+    	<property name="minDate" value="2007-06-21"/>
+    	<property name="maxDate" value="2007-09-21"/>
+    	<property name="datePrecision" value="1970-01-02 09:00:00"/>
+	</bean>
+	-->
+	
+	<bean id="db_usercsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/db_user.csv}"/>
+            <property name="columns" value="id,name,email,password,role_id,active"/>
+            									
+            <property name="separator" value=","/>		
+	</bean>
+
+	<bean id="db_customercsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/db_customer.csv}"/>
+            <property name="columns" value="id,category,salutation,first_name,last_name,birth_date"/>
+            									
+            <property name="separator" value=","/>		
+	</bean>
+	
+    <generate type="db_user" count="{db_user_count}" consumer="db_usercsv">
+    
+        <variable name="person" generator="org.databene.domain.person.PersonGenerator" dataset="{country}" locale="{locale}"/>
+        
+        <attribute name="id" generator="org.databene.benerator.primitive.IncrementGenerator" />
+        <attribute name="name" script="person.givenName + ' ' + person.familyName" />
+        <attribute name="email" generator="org.databene.domain.person.EMailAddressGenerator" />
+        <attribute name="password" pattern="[A-Za-z0-9]{8,12}" />
+        <attribute name="role_id" constant="customer" />
+        <attribute name="active" pattern="[0,1]" distribution="random" />
+        
+        <generate type="db_customer" count="1" consumer="db_customercsv">
+            <id name="id" script="db_user.id" />
+            <attribute name="category" values="'A','B','C'" />
+            <attribute name="salutation" script="person.salutation" />
+            <attribute name="first_name" script="person.givenName" />
+            <attribute name="last_name" script="person.familyName" />
+            <attribute name="birth_date" pattern="{date_pattern}" />
+        </generate>
+    </generate>
+	
+</setup>
+	

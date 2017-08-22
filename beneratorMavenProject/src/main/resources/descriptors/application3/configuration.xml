@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+	<import defaults="true" />
+	<include uri="configuration.properties" />
+
+	<bean id="TABLEBTREE" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/TABLEBTREE.csv}" />
+		<property name="columns"
+			value="COL_ID,COL_LONGLABEL,COL_SHORTLABEL,COL_DATE,COL_NUMERIC,COL_RANK" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="TABLEBTREE_ENTITIES" count="{TABLEBTREE_COUNT}" consumer="TABLEBTREE">
+	
+    	<variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    	
+		<id name="COL_ID" script="identifier" />
+		<attribute name="COL_LONGLABEL" script="'COL_LONGLABEL-' + identifier"/>
+		<attribute name="COL_SHORTLABEL" script="'COL_SHORTLABEL-' + identifier" />
+		<attribute name="COL_DATE" pattern="{date_pattern}" />
+		<attribute name="COL_NUMERIC" type="int" min="1" max="2500" distribution="random" />
+		<attribute name="COL_RANK" script="TABLEBTREE_ENTITIES.COL_ID" />		
+	</generate>
+
+</setup>
+

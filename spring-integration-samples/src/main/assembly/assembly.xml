@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>${project.version}</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<directory>${basedir}/src/main/assembly/batch</directory>
+			<outputDirectory>/</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${basedir}/src/main/resources</directory>
+			<outputDirectory>/conf</outputDirectory>
+			<includes>
+				<include>chain-default-config.xml</include>
+				<include>spring-integration-config.xml</include>
+				<include>chain-person-config.xml</include>
+				<include>chain-product-config.xml</include>												
+			</includes>
+			<excludes>
+				<exclude>logback.xml</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>${basedir}/src/main/resources</directory>
+			<outputDirectory>/doc</outputDirectory>
+			<includes>
+				<include>schemas/*.xsd</include>
+				<include>xsl/*.xsl</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>${basedir}/folders/samples</directory>
+			<outputDirectory>/folders/samples</outputDirectory>
+		</fileSet>
+		
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<scope>runtime</scope>
+			<outputDirectory>/lib</outputDirectory>
+			<unpack>false</unpack>
+			<includes>
+				<include>fr.personal.samples.spring:spring-integration-samples
+				</include>
+
+				<include>javax.xml.stream:stax-api</include>
+				<include>org.codehaus.woodstox:woodstox-core-asl</include>
+				<include>org.codehaus.woodstox:stax2-api</include>
+
+				<include>org.slf4j:slf4j-api</include>
+				<include>org.slf4j:jcl-over-slf4j</include>
+				<include>ch.qos.logback:logback-classic</include>
+				<include>ch.qos.logback:logback-core</include>
+
+				<include>org.springframework:spring-context</include>
+				<include>org.springframework:spring-core</include>
+				<include>org.springframework:spring-beans</include>
+				<include>org.springframework:spring-aop</include>
+				<include>org.springframework:spring-asm</include>
+				<include>org.springframework:spring-expression</include>
+				<include>org.springframework:spring-tx</include>
+
+				<include>org.springframework.ws:spring-xml</include>
+				<include>org.springframework:spring-oxm</include>
+
+				<include>org.springframework.integration:spring-integration-core
+				</include>
+				<include>org.springframework.integration:spring-integration-event
+				</include>
+				<include>org.springframework.integration:spring-integration-file
+				</include>
+				<include>org.springframework.integration:spring-integration-xml
+				</include>
+				<include>org.springframework.integration:spring-integration-jmx
+				</include>
+				<include>org.springframework.integration:spring-integration-stream
+				</include>
+				<include>org.springframework.integration:spring-integration-jdbc
+				</include>
+				<include>org.springframework.integration:spring-integration-mongodb
+				</include>
+				<include>org.springframework.data:spring-data-commons-core</include>
+
+				<include>aopalliance:aopalliance</include>
+				<include>commons-logging:commons-logging</include>
+
+				<include>org.springframework.data:spring-data-mongodb</include>
+				<include>org.mongodb:mongo-java-driver</include>
+
+				<include>cglib:cglib</include>
+				<include>asm:asm</include>
+				<include>org.aspectj:aspectjrt</include>
+				<include>org.aspectj:aspectjweaver:</include>
+
+			</includes>
+		</dependencySet>
+	</dependencySets>
+</assembly>

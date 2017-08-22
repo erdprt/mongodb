@@ -1,0 +1,4 @@
+REF_BIL_STA_ID;REF_BIL_STA_LABEL;REF_BIL_STA_DESC;TRA_CREATED;TRA_UPDATED
+VALIDATED;billing validated;billing done and validated;2014-01-02 13:18:56;2008-07-06 13:56:38
+VALIDATING;billing validating;billing validating;2014-01-02 13:18:56;2008-07-06 13:56:38
+REJECTED;billing rejected;billing rejected;2014-01-02 13:18:56;2008-07-06 13:56:38

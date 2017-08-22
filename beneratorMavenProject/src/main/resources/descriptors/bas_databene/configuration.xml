@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+  
+	<include
+		uri="configuration.properties" />
+
+	<bean id="db_category_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_category.csv}" />
+		<property name="columns" value="id,name,parent_id" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate name="db_category" count="{db_category_count}" consumer="db_category_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" min="1"/>
+
+		<attribute name="id" script="'CAT_' + increment" />
+		<attribute name="name" script="'CAT_NAME_' + increment" />
+		<attribute name="parent_id" script="" />
+	</generate>
+
+	<bean id="db_product_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_product.csv}" />
+		<property name="columns" value="ean_code,name,category_id,price,manufacturer,notes,description" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<bean id="db_order_item_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_order_item.csv}" />
+		<property name="columns" value="id,order_id,number_of_items,product_ean_code,total_price" />
+		<property name="separator" value=";" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<generate name="db_product" count="{db_product_count}" consumer="db_product_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" />
+		<variable name="eangen" generator="org.databene.domain.product.EAN13Generator" />
+
+		<attribute name="categorygen" type="int" min="1" max="{db_category_count}"  distribution="random"/>
+		
+		<attribute name="ean_code" script="eangen" />
+		<attribute name="name" script="'PROD_NAME_' + increment" />
+		<attribute name="category_id" script="'CAT_' + db_product.categorygen" />
+		<attribute name="price" pattern="{float_pattern}"/>
+		<attribute name="manufacturer" script="'MANUFACTURER_' + increment" />
+		<attribute name="notes" script="'NOTES_' + increment" />
+		<attribute name="description" script="'DESCRIPTION_' + increment" />
+		
+		<generate name="db_order_item" count="1" consumer="db_order_item_csv">
+	
+			<attribute name="id" script="increment" />
+			<attribute name="order_id" script="increment" />
+			<attribute name="number_of_items" type="int" min="10" max="100" distribution="random"/>
+			<attribute name="product_ean_code" script="db_product.ean_code" />
+			<attribute name="total_price" pattern="{float_pattern}" />		
+		</generate>
+		
+	</generate>
+
+	<bean id="db_role_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_role.csv}" />
+		<property name="columns" value="name" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<generate name="db_role" count="{db_role_count}" consumer="db_role_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" />
+
+		<attribute name="name" script="'ROLE_' + increment" />
+	</generate>
+
+	<bean id="db_user_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_user.csv}" />
+		<property name="columns" value="id,name,email,password,role_id,active" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<generate name="db_user" count="{db_user_count}" consumer="db_user_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" />
+		<attribute name="rolegen" type="int" min="1" max="{db_role_count}"  distribution="random"/>
+
+		<attribute name="id" script="increment" />
+		<attribute name="name" script="'CUSTOMER_' + increment" />
+		<attribute name="email" script="'firstname' + increment + '.' + 'lastname' + increment + '@google.com'" />
+		<attribute name="password" script="'PASSWORD_' + increment" />
+		<attribute name="role_id" script="'ROLE_' + db_user.rolegen" />
+		<attribute name="active" pattern="[0-1]" />
+	</generate>
+
+	<bean id="db_customer_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_customer.csv}" />
+		<property name="columns" value="id,category,salutation,first_name,last_name,birth_date" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<generate name="db_customer" count="{db_customer_count}" consumer="db_customer_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" />
+
+		<attribute name="id" script="increment" />
+		<attribute name="category" pattern="[A-Z]" />
+		<attribute name="salutation" pattern="['Mr','Miss']" />
+		<attribute name="first_name" script="'firstname' + increment" />
+		<attribute name="last_name" script="'lastname' + increment" />
+		<attribute name="birth_date" pattern="{date_pattern}" />
+				
+	</generate>
+
+	<bean id="db_order_csv" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/db_order.csv}" />
+		<property name="columns" value="id,customer_id,total_price,created_at" />
+		<property name="separator" value=";" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<generate name="db_order" count="{db_order_count}" consumer="db_order_csv">
+		<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" />
+		<attribute name="customergen" type="int" min="1" max="{db_customer_count}"  distribution="random"/>
+
+		<attribute name="id" script="increment" />
+		<attribute name="customer_id" script="db_order.customergen" />
+		<attribute name="total_price" pattern="{float_pattern}" />
+		<attribute name="created_at" pattern="{date_pattern}" />
+	</generate>
+
+</setup>

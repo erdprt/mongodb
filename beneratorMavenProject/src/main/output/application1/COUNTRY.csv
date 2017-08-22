@@ -1,0 +1,21 @@
+COUNTRY_ID;CODE;LABEL;SHORT_LABEL;CREATION_DATE;UPDATE_DATE;OBJECT_VERSION
+1;country.code1;country.label1;country.shortlabel1;2010-11-01 21:52:35;2010-11-01 21:52:35;0
+2;country.code2;country.label2;country.shortlabel2;2010-11-01 11:12:39;2010-11-01 11:12:39;0
+3;country.code3;country.label3;country.shortlabel3;2010-11-01 12:58:16;2010-11-01 12:58:16;0
+4;country.code4;country.label4;country.shortlabel4;2010-11-01 23:35:46;2010-11-01 23:35:46;0
+5;country.code5;country.label5;country.shortlabel5;2010-11-01 13:51:14;2010-11-01 13:51:14;0
+6;country.code6;country.label6;country.shortlabel6;2010-11-01 13:31:57;2010-11-01 13:31:57;0
+7;country.code7;country.label7;country.shortlabel7;2010-11-01 13:49:17;2010-11-01 13:49:17;0
+8;country.code8;country.label8;country.shortlabel8;2010-11-01 21:42:11;2010-11-01 21:42:11;0
+9;country.code9;country.label9;country.shortlabel9;2010-11-01 21:21:28;2010-11-01 21:21:28;0
+10;country.code10;country.label10;country.shortlabel10;2010-11-01 12:18:29;2010-11-01 12:18:29;0
+11;country.code11;country.label11;country.shortlabel11;2010-11-01 22:13:28;2010-11-01 22:13:28;0
+12;country.code12;country.label12;country.shortlabel12;2010-11-01 21:18:37;2010-11-01 21:18:37;0
+13;country.code13;country.label13;country.shortlabel13;2010-11-01 12:33:28;2010-11-01 12:33:28;0
+14;country.code14;country.label14;country.shortlabel14;2010-11-01 13:36:11;2010-11-01 13:36:11;0
+15;country.code15;country.label15;country.shortlabel15;2010-11-01 12:54:51;2010-11-01 12:54:51;0
+16;country.code16;country.label16;country.shortlabel16;2010-11-01 23:53:43;2010-11-01 23:53:43;0
+17;country.code17;country.label17;country.shortlabel17;2010-11-01 22:32:41;2010-11-01 22:32:41;0
+18;country.code18;country.label18;country.shortlabel18;2010-11-01 21:41:27;2010-11-01 21:41:27;0
+19;country.code19;country.label19;country.shortlabel19;2010-11-01 21:45:18;2010-11-01 21:45:18;0
+20;country.code20;country.label20;country.shortlabel20;2010-11-01 11:56:36;2010-11-01 11:56:36;0

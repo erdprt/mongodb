@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:integration-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:integration-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:integration-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/integration/xml
+						http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/integration
+						http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+						http://www.springframework.org/schema/integration/jms
+						http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+    					http://www.springframework.org/schema/integration/jmx
+    					http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
+						http://www.springframework.org/schema/integration/file
+						http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+						http://www.springframework.org/schema/integration/jdbc
+						http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:property-placeholder
+		location="classpath:spring-integration-config.properties" />
+
+	<!-- first sample: dom splitter based on xpath expression  -->
+
+	<file:inbound-channel-adapter id="incomingDomChannel" directory="${folders.dom.incoming}">
+		<integration:poller fixed-rate="1000"/>
+	</file:inbound-channel-adapter>
+	
+	<integration:bridge input-channel="incomingDomChannel" output-channel="inputDomChannel"> </integration:bridge>
+	
+	<integration-xml:xpath-splitter id="xpathSplitter" input-channel="inputDomChannel" output-channel="outputDomChannel">
+		<integration-xml:xpath-expression expression="/ns1:Message/ns1:Body/ns1:persons/ns1:person" 
+											ns-uri="http://erdprt.org/DefaultStructure"
+											ns-prefix="ns1"></integration-xml:xpath-expression>
+	</integration-xml:xpath-splitter>
+	
+	<integration:channel id="outputDomChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="outputDomFiles" 
+									channel="outputDomChannel" 
+									directory="${folders.dom.outgoing}" 
+									filename-generator="defaultFileGenerator"/>
+	
+	<!-- Second sample: Stax part: first sample basic  -->
+	
+	<file:inbound-channel-adapter id="incomingStaxBasicChannel" directory="${folders.stax.basic.incoming}">
+		<integration:poller fixed-rate="1000"/>
+	</file:inbound-channel-adapter>
+
+	<integration:splitter id="staxBasicSplitterHandler" 
+							input-channel="incomingStaxBasicChannel"
+							output-channel="outputStaxBasicChannel"
+							ref="staxBasicSplitter">
+	</integration:splitter>
+
+	<!--	
+	<integration:chain id="splitterChain" input-channel="incomingStaxChannel" output-channel="outputStaxChannel">
+		<integration:splitter ref="staxSplitter">
+		</integration:splitter>
+	</integration:chain>
+	-->
+
+	<bean id="staxBasicSplitter" class="fr.personal.erdprt.integration.splitters.StaxBasicSplitterImpl">
+    	<property name="elementName" value="person"/>
+	</bean>	
+	
+	<integration:channel id="outputStaxBasicChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="outputStaxBasicFiles" 
+									channel="outputStaxBasicChannel" 
+									directory="${folders.stax.basic.outgoing}" 
+									filename-generator="defaultFileGenerator"/>
+
+	<integration:channel id="outputStaxBasicChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="outputStaxBasicFiles" 
+									channel="outputStaxBasicChannel" 
+									directory="${folders.stax.basic.outgoing}" 
+									filename-generator="defaultFileGenerator"/>
+
+	<!-- Third sample: Stax part: optimized stax sample   -->
+
+	<file:inbound-channel-adapter id="incomingStaxAdvancedChannel" directory="${folders.stax.advanced.incoming}">
+		<integration:poller fixed-rate="1000"/>
+	</file:inbound-channel-adapter>
+
+  	<integration:outbound-channel-adapter channel="incomingStaxAdvancedChannel" ref="splitAdvancedHandler" method="handle">
+  	</integration:outbound-channel-adapter>
+
+	<bean id="splitAdvancedHandler" class="fr.personal.erdprt.integration.handlers.AdvancedSplitterHandler" scope="prototype">
+		<property name="fileType" value="default"/>
+		<property name="bufferSize" value="${buffer.size.default}"/>
+		<property name="splitter" ref="splitterAdvanced"/>
+		<property name="messageChannel" ref="outputStaxAdvancedChannel"/>
+	</bean>	
+
+	<bean id="splitterAdvanced" class="fr.personal.erdprt.integration.splitters.advanced.AdvancedSplitterImpl" scope="prototype">
+    	<property name="elementName" value="person"/>
+    	<property name="splitReader" ref="splitStringReader"/>
+    	<property name="countElementName" value="persons"/>
+	</bean>	
+
+	<bean id="splitStringReader" class="fr.personal.erdprt.integration.splitters.readers.SplitStringReader" scope="prototype">
+	</bean>	
+
+	<integration:channel id="outputStaxAdvancedChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="outputStaxAdvancedChannelFiles" 
+									channel="outputStaxAdvancedChannel" 
+									directory="${folders.stax.advanced.outgoing}" 
+									filename-generator="defaultFileGenerator"/>
+
+	<!-- output : final point  -->
+
+	<integration:channel id="errorChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+	
+	<integration:chain id="errorChain" input-channel="errorChannel" output-channel="errorOutputChannel">
+		<integration:service-activator ref="errorHandler" method="handle"/>
+	</integration:chain>
+	
+	<bean id="errorHandler" class="fr.personal.erdprt.integration.handlers.ErrorHandler">
+	</bean>
+
+	<integration:channel id="errorOutputChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+	
+	<file:outbound-channel-adapter id="outputErrorFiles" 
+									channel="errorOutputChannel" 
+									directory="${folders.error}" 
+									filename-generator="defaultFileGenerator"/>
+
+	<integration:poller id="defaultPoller" 
+						error-channel="errorChannel" 
+						default="true" 
+						max-messages-per-poll="${default.poller.maxMessagePerPoll}"
+						fixed-rate="${default.poller.fixedRate}"/>
+	  
+	<bean id="defaultFileGenerator" class="fr.personal.erdprt.integration.generators.UUIDFileNameGenerator">
+	</bean>
+
+  	<!-- JMX PART -->	
+	<integration-jmx:mbean-export default-domain="integration.domain" server="mbeanServer"/>
+	
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true"/>
+	</bean>	
+			
+</beans>

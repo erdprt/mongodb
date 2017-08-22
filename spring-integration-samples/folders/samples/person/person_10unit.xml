@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/PersonStructure">
+  <MetaData>
+    <from>fromA</from>
+    <to>toB</to>
+    <contentType>xml</contentType>
+  </MetaData>
+  <Body>
+    <persons count="10">
+      <person id="43b27da9-2df6-4260-be11-64b2af40dcb1" lastName="lastName-0" firstName="firstName-0" civility="M" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="france" street="street-0" city="Nantes" zipCode="00000"></person>
+      <person id="31b00d18-c610-45cf-b617-5d66ebbea003" lastName="lastName-1" firstName="firstName-1" civility="F" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="england" street="street-1" city="Paris" zipCode="95150"></person>
+      <person id="018e96cd-8795-4fb8-8f9a-d00eaf3d8048" lastName="lastName-2" firstName="firstName-2" civility="M" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="USA" street="street-2" city="Lille" zipCode="00000"></person>
+      <person id="48b9a00a-586b-4db6-a058-4df33fd91b2f" lastName="lastName-3" firstName="firstName-3" civility="F" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="spain" street="street-3" city="Lyon" zipCode="95150"></person>
+      <person id="d51df658-1b20-4e8b-bb0a-2f650ddcaaa7" lastName="lastName-4" firstName="firstName-4" civility="M" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="spain" street="street-4" city="Paris" zipCode="95150"></person>
+      <person id="892b56ce-8077-4a5a-a6ed-6e15fee9239c" lastName="lastName-5" firstName="firstName-5" civility="F" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="spain" street="street-5" city="Paris" zipCode="75003"></person>
+      <person id="450b7257-8f4f-4abb-bfd6-fdb896f08c75" lastName="lastName-6" firstName="firstName-6" civility="M" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="USA" street="street-6" city="Lille" zipCode="75003"></person>
+      <person id="21ae5892-e508-497c-b525-332f5c6dc5e7" lastName="lastName-7" firstName="firstName-7" civility="F" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="england" street="street-7" city="Rennes" zipCode="95150"></person>
+      <person id="1a8b5a05-ac72-4cbb-9634-744a8293f53c" lastName="lastName-8" firstName="firstName-8" civility="M" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="italy" street="street-8" city="Nantes" zipCode="00000"></person>
+      <person id="134bd825-5497-4466-bde0-1bbd786ce037" lastName="lastName-9" firstName="firstName-9" civility="F" birthDate="Sat Dec 29 22:53:52 CET 2012" nationality="italy" street="street-9" city="Bordeaux" zipCode="00000"></person>
+    </persons>
+  </Body>
+</Message>

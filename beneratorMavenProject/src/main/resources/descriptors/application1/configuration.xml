@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+	<import defaults="true" />
+	<include uri="configuration.properties" />
+
+	<bean id="PAYMENT_STATUS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/PAYMENT_STATUS.csv}" />
+		<property name="columns"
+			value="PAYMENT_STATUS_ID,PAYMENT_STATUS_LABEL,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="PAYMENT_STATUS_ENTITIES" count="{PAYMENT_STATUS_COUNT}" consumer="PAYMENT_STATUS">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    <variable name="payment_status" type="entity" source="{ftl:${resources_dir}/payment.status.csv}" distribution="step" separator=";"/>
+
+		<id name="PAYMENT_STATUS_ID" script="identifier" />
+		<attribute name="PAYMENT_STATUS_LABEL" source="payment_status.value" />
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="PAYMENT_STATUS_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="LANGUAGE" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/LANGUAGE.csv}" />
+		<property name="columns"
+			value="LANGUAGE_ID,LABEL,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="LANGUAGE_ENTITIES" count="{LANGUAGE_COUNT}" consumer="LANGUAGE">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    <variable name="country_generator" generator="org.databene.domain.address.CountryGenerator"/>
+
+		<id name="LANGUAGE_ID" script="identifier" />
+		<attribute name="LABEL" script="{country_generator.defaultLanguageLocale}" />
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="LANGUAGE_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="CATEGORY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CATEGORY.csv}" />
+		<property name="columns"
+			value="CATEGORY_ID,CATEGORY_CODE,CATEGORY_LABEL,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="CATEGORY_ENTITIES" count="{CATEGORY_COUNT}" consumer="CATEGORY">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    <variable name="categories" type="entity" source="{ftl:${resources_dir}/categories.csv}" distribution="step" separator=";"/>
+
+		<id name="CATEGORY_ID" script="identifier" />
+		<attribute name="CATEGORY_CODE" source="categories.code" />
+		<attribute name="CATEGORY_LABEL" source="categories.label" />		
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="CATEGORY_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="COUNTRY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/COUNTRY.csv}" />
+		<property name="columns"
+			value="COUNTRY_ID,CODE,LABEL,SHORT_LABEL,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="COUNTRY_ENTITIES" count="{COUNTRY_COUNT}" consumer="COUNTRY">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    <variable name="countries" generator="org.databene.domain.address.CountryGenerator"/>
+
+		<id name="COUNTRY_ID" script="identifier" />
+		<attribute name="CODE" script="{ftl:country.code${COUNTRY_ENTITIES.COUNTRY_ID}}" />
+		<attribute name="LABEL" script="{ftl:country.label${COUNTRY_ENTITIES.COUNTRY_ID}}"/>		
+		<attribute name="SHORT_LABEL" script="{ftl:country.shortlabel${COUNTRY_ENTITIES.COUNTRY_ID}}" />		
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="COUNTRY_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+    		
+ 	</generate>
+
+	<bean id="CITY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CITY.csv}" />
+		<property name="columns"
+			value="CITY_ID,NAME,ZIPCODE,DEPARTMENT,COUNTRY_ID,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+		
+	<generate type="CITY_ENTITIES" count="{CITY_COUNT}" consumer="CITY">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+    <variable name="cities" generator="org.databene.domain.address.CountryGenerator"/>
+
+		<id name="CITY_ID" script="identifier" />
+		<attribute name="NAME" script="{ftl:city.name${CITY_ENTITIES.CITY_ID}}" />
+		<attribute name="ZIPCODE" pattern="{zipcode_pattern}" />
+		<attribute name="DEPARTMENT" script="{ftl:city.department${CITY_ENTITIES.CITY_ID}}"/>		
+		<attribute name="COUNTRY_ID" type="int" min="{idMin}" max="{COUNTRY_COUNT}" distribution="random" />		
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="CITY_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+ 	</generate>
+
+	<bean id="CUSTOMER" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CUSTOMER.csv}" />
+		<property name="columns"
+			value="CUSTOMER_ID,FIRSTNAME,LASTNAME,SEX,BIRTHDATE,MOBILE_PHONE,EMAIL,ADDRESS_ID,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="CUSTOMER_ENTITIES" count="{CUSTOMER_COUNT}" consumer="CUSTOMER">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="CUSTOMER_ID" script="identifier" />
+		<attribute name="FIRSTNAME" script="{ftl:customer.firstname${CUSTOMER_ENTITIES.CUSTOMER_ID}}" />
+		<attribute name="LASTNAME" script="{ftl:customer.lastname${CUSTOMER_ENTITIES.CUSTOMER_ID}}" />
+		<attribute name="SEX" pattern="{sex_pattern}"/>		
+		<attribute name="BIRTHDATE" pattern="{birthdate_pattern}"/>
+		<attribute name="MOBILE_PHONE" pattern="{mobilephone_pattern}" />
+		<attribute name="EMAIL" script="{ftl:firstname${CUSTOMER_ENTITIES.CUSTOMER_ID}.lastname${CUSTOMER_ENTITIES.CUSTOMER_ID}@gmail.com}" />
+		<attribute name="ADDRESS_ID" type="int" min="{idMin}" max="{ADDRESS_COUNT}" unique="true"/>            		
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="CUSTOMER_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+	
+	<bean id="ADDRESS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/ADDRESS.csv}" />
+		<property name="columns"
+			value="ADDRESS_ID,STREETNAME,PHONE,CITY_ID,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="ADDRESS_ENTITIES" count="{ADDRESS_COUNT}" consumer="ADDRESS">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="ADDRESS_ID" script="identifier" />
+		<attribute name="STREETNAME" script="{ftl:address.streetname${ADDRESS_ENTITIES.ADDRESS_ID}}" />
+		<attribute name="PHONE" pattern="{zipcode_pattern}" />
+		<attribute name="CITY_ID" type="int" min="{idMin}" max="{CITY_COUNT}" distribution="random"/>		
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="ADDRESS_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="ACTORS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/ACTORS.csv}" />
+		<property name="columns"
+			value="ACTOR_ID,FIRSTNAME,LASTNAME,SEX,BIRTHDATE,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="ACTORS_ENTITIES" count="{ACTORS_COUNT}" consumer="ACTORS">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="ACTOR_ID" script="identifier" />
+		<attribute name="FIRSTNAME" script="{ftl:actor.firstname${ACTORS_ENTITIES.ACTOR_ID}}" />
+		<attribute name="LASTNAME" script="{ftl:actor.lastname${ACTORS_ENTITIES.ACTOR_ID}}" />
+		<attribute name="SEX" pattern="{sex_pattern}"/>		
+		<attribute name="BIRTHDATE" pattern="{birthdate_pattern}"/>
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="ACTORS_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="FILM" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/FILM.csv}" />
+		<property name="columns"
+			value="FILM_ID,TITLE,DESCRIPTION,RELEASE_YEAR,LANGUAGE_ID,ORIGINAL_LANGUAGE_ID,RENTAL_DURATION,RENTAL_PRICE,LENGTH,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="FILM_ACTORS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/FILM_ACTORS.csv}" />
+		<property name="columns"
+			value="ACTOR_ID,FILM_ID" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="FILM_CATEGORY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/FILM_CATEGORY.csv}" />
+		<property name="columns"
+			value="FILM_ID,CATEGORY_ID" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="FILM_ENTITIES" count="{FILM_COUNT}" consumer="FILM">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="FILM_ID" script="identifier" />
+		<attribute name="TITLE" script="{ftl:film.title${FILM_ENTITIES.FILM_ID}}" />
+		<attribute name="DESCRIPTION" script="{ftl:title.description${FILM_ENTITIES.FILM_ID}}" />
+		<attribute name="RELEASE_YEAR" pattern="{annee_pattern}"/>		
+		<attribute name="LANGUAGE_ID" type="int" min="{idMin}" max="{LANGUAGE_COUNT}" distribution="random"/>
+		<attribute name="ORIGINAL_LANGUAGE_ID" type="int" min="{idMin}" max="{LANGUAGE_COUNT}" distribution="random"/>
+		<attribute name="RENTAL_DURATION" type="int" min="1" max="5" distribution="random"/>
+		<attribute name="RENTAL_PRICE" type="int" min="5" max="20" distribution="random"/>
+		<attribute name="LENGTH" type="int" min="5" max="20" distribution="random"/>
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="FILM_ENTITIES.CREATION_DATE"/>
+		<attribute name="OBJECT_VERSION" values="0" />
+		
+		<attribute name="FILM_ACTORS_LOOP" min="{FILM_ACTORS_COUNT_MIN}" max="{ACTORS_COUNT}" type="int" distribution="random" />
+    		
+  	<generate type="FILM_ACTORS_ENTITIES" count="{FILM_ENTITIES.FILM_ACTORS_LOOP}" consumer="FILM_ACTORS">
+  	
+  	  <attribute name="ACTOR_ID" type="int" min="{idMin}" max="{ACTORS_COUNT}" unique="true"/>
+  		<attribute name="FILM_ID" script="FILM_ENTITIES.FILM_ID" />
+ 	  </generate>
+
+		<attribute name="FILM_CATEGORY_LOOP" min="{FILM_CATEGORY_COUNT_MIN}" max="{CATEGORY_COUNT}" type="int" distribution="random" />
+    		
+  	<generate type="FILM_CATEGORY_ENTITIES" count="{FILM_ENTITIES.FILM_CATEGORY_LOOP}" consumer="FILM_CATEGORY">
+  	
+  		<attribute name="FILM_ID" script="FILM_ENTITIES.FILM_ID" />
+  	  <attribute name="CATEGORY_ID" type="int" min="{idMin}" max="{CATEGORY_COUNT}" unique="true"/>
+  		
+ 	  </generate>
+		
+	</generate>
+
+	<bean id="ORDERS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/ORDERS.csv}" />
+		<property name="columns"
+			value="ORDER_ID,PAYMENT_STATUS_ID,CUSTOMER_ID,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="ORDERS_FILM" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/ORDERS_FILM.csv}" />
+		<property name="columns"
+			value="ORDER_ID,FILM_ID" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="ORDERS_ENTITIES" count="{ORDERS_COUNT}" consumer="ORDERS">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="ORDER_ID" script="identifier" />
+		<attribute name="PAYMENT_STATUS_ID" type="int" min="{idMin}" max="{PAYMENT_STATUS_COUNT}" distribution="random" />
+		<attribute name="CUSTOMER_ID" type="int" min="{idMin}" max="{CUSTOMER_COUNT}" distribution="random" />
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="ORDERS_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+		    
+		<attribute name="ORDERS_FILM_LOOP" min="{FILM_CATEGORY_COUNT_MIN}" max="{CATEGORY_COUNT}" type="int" distribution="random" />
+    		
+  	<generate type="ORDERS_FILM_ENTITIES" count="{ORDERS_ENTITIES.ORDERS_FILM_LOOP}" consumer="ORDERS_FILM">
+  	
+  		<attribute name="ORDER_ID" script="ORDERS_ENTITIES.ORDER_ID" />
+  	  <attribute name="FILM_ID" type="int" min="{idMin}" max="{FILM_COUNT}" unique="true"/>
+  		
+ 	  </generate>
+		    
+	</generate>
+
+	<bean id="INVENTORY" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/INVENTORY.csv}" />
+		<property name="columns"
+			value="INVENTORY_ID,QUANTITY,FILM_ID,CREATION_DATE,UPDATE_DATE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="INVENTORY_ENTITIES" count="{INVENTORY_COUNT}" consumer="INVENTORY">
+	
+    <variable name="identifier" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<id name="INVENTORY_ID" script="identifier" />
+		<attribute name="QUANTITY" type="int" min="{INVENTORY_QUANTITY_MIN}" max="{INVENTORY_QUANTITY_MAX}" distribution="random" />
+		<attribute name="FILM_ID" type="int" min="{idMin}" max="{FILM_COUNT}" unique="true" />
+		<attribute name="CREATION_DATE" pattern="{update_timestamp_pattern}" />
+		<attribute name="UPDATE_DATE" script="INVENTORY_ENTITIES.CREATION_DATE" />
+		<attribute name="OBJECT_VERSION" values="0" />
+		    
+	</generate>
+
+</setup>
+

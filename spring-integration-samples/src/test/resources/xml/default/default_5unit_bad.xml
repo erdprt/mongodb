@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/DefaultStructure">
+	<MetaData>
+		<from>fromV</from>
+		<to>toV</to>
+		<contentType>xml</contentType>
+	</MetaData>
+	<Body>
+		<persons count="5">
+			<person id="d2a2b2bc-ce74-46af-9d4b-42caad880b12">
+				<civilStatus>
+					<firstName>firName-0</firstName>
+					<civility>M</civility>
+					<birthDate>2013-01-05T21:37:51.130+01:00</birthDate>
+					<nationality>france</nationality>
+				</civilStatus>
+				<address>
+					<street>street-0</street>
+					<city>Strasbourg</city>
+					<zipCode>95150</zipCode>
+				</address>
+				<products count="2">
+					<product id="ae19ea59-031f-4334-9119-b22a5cae6a5e" href="d2a2b2bc-ce74-46af-9d4b-42caad880b12"
+						quantity="1558" date="2013-01-05T21:37:51.130+01:00" price="41.4"
+						category="ligth"></product>
+					<product id="e8d3aadd-e302-4bfb-af84-b78c5474fe02" href="d2a2b2bc-ce74-46af-9d4b-42caad880b12"
+						quantity="1684" date="2013-01-05T21:37:51.130+01:00" price="156.4"
+						category="printer"></product>
+				</products>
+			</person>
+			<person id="aff6d756-c972-4264-a505-a260b481db01">
+				<civilStatus>
+					<lastName>lastName-1</lastName>
+					<firstName>firName-1</firstName>
+					<civility>F</civility>
+					<birthDate>2013-01-05T21:37:51.131+01:00</birthDate>
+					<nationality>england</nationality>
+				</civilStatus>
+				<address>
+					<street>street-1</street>
+					<city>Rennes</city>
+					<zipCode>75001</zipCode>
+				</address>
+				<products count="10">
+					<product id="b442d21d-dd0f-4b8a-8821-1825e540c81d" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="1321" date="2013-01-05T21:37:51.131+01:00" price="133.4"
+						category="food"></product>
+					<product id="913219dd-0f93-4dd6-b965-08fdfdcf566e" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="730" date="2013-01-05T21:37:51.131+01:00" price="92.0"
+						category="sofa"></product>
+					<product id="3cd0ec88-3dd1-48eb-98e0-589ee9a5e731" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="721" date="2013-01-05T21:37:51.131+01:00" price="128.8"
+						category="sofa"></product>
+					<product id="e2d2940b-96d4-4770-8f1c-aa95eff03833" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="11" date="2013-01-05T21:37:51.131+01:00" price="117.3"
+						category="food"></product>
+					<product id="cdd7c63f-cad3-463b-8988-aea94a23fa58" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="236" date="2013-01-05T21:37:51.131+01:00" price="103.5"
+						category="sofa"></product>
+					<product id="c727c975-8717-44c2-9fb5-ca66797c1365" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="1653" date="2013-01-05T21:37:51.131+01:00" price="103.5"
+						category="ligth"></product>
+					<product id="14461309-5062-4ce5-a8b3-e133a2b387c9" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="1334" date="2013-01-05T21:37:51.132+01:00" price="48.3"
+						category="food"></product>
+					<product id="d8679c16-3755-4689-af35-e75ae8b4a204" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="851" date="2013-01-05T21:37:51.132+01:00" price="213.9"
+						category="food"></product>
+					<product id="3640518b-b627-43b1-a02a-ac2317a64828" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="1597" date="2013-01-05T21:37:51.132+01:00" price="216.2"
+						category="ligth"></product>
+					<product id="f9df637b-1c50-44c2-bf5b-ffc9b9fb15aa" href="aff6d756-c972-4264-a505-a260b481db01"
+						quantity="847" date="2013-01-05T21:37:51.132+01:00" price="184.0"
+						category="computer"></product>
+				</products>
+			</person>
+			<person id="d6122835-29a2-4544-b97f-e03d8b168d9e">
+				<civilStatus>
+					<lastName>lastName-2</lastName>
+					<firstName>firName-2</firstName>
+					<civility>M</civility>
+					<birthDate>2013-01-05T21:37:51.132+01:00</birthDate>
+					<nationality>unknown</nationality>
+				</civilStatus>
+				<address>
+					<street>street-2</street>
+					<city>Bordeaux</city>
+					<zipCode>92700</zipCode>
+				</address>
+				<products count="2">
+					<product id="c31f32f5-51d8-41d2-82a0-bfb2b897a843" href="d6122835-29a2-4544-b97f-e03d8b168d9e"
+						quantity="339" date="2013-01-05T21:37:51.132+01:00" price="55.2"
+						category="printer"></product>
+					<product id="3d1548ba-8cbc-42d6-942f-f2f139555ccb" href="d6122835-29a2-4544-b97f-e03d8b168d9e"
+						quantity="934" date="2013-01-05T21:37:51.132+01:00" price="167.9"
+						category="ligth"></product>
+				</products>
+			</person>
+			<person id="197fbffe-29a4-4a64-9cc3-352eb7605dba">
+				<civilStatus>
+					<lastName>lastName-3</lastName>
+					<firstName>firName-3</firstName>
+					<civility>F</civility>
+					<birthDate>2013-01-05T21:37:51.133+01:00</birthDate>
+					<nationality>spain</nationality>
+				</civilStatus>
+				<address>
+					<street>street-3</street>
+					<city>Rennes</city>
+					<zipCode>95150</zipCode>
+				</address>
+				<products count="1">
+					<product id="55d9da2b-1fd0-46ff-9a62-4c89e9a0476a" href="197fbffe-29a4-4a64-9cc3-352eb7605dba"
+						quantity="1906" date="2013-01-05T21:37:51.133+01:00" price="165.6"
+						category="ligth"></product>
+				</products>
+			</person>
+			<person id="0ba04f65-fed4-4643-8d6d-e9703b050ae0">
+				<civilStatus>
+					<lastName>lastName-4</lastName>
+					<firstName>firName-4</firstName>
+					<civility>M</civility>
+					<birthDate>2013-01-05T21:37:51.133+01:00</birthDate>
+					<nationality>france</nationality>
+				</civilStatus>
+				<address>
+					<street>street-4</street>
+					<city>Rennes</city>
+					<zipCode>75002</zipCode>
+				</address>
+				<products count="4">
+					<product id="d63d6b2e-295c-405a-8d04-0c83ec88bc72" href="0ba04f65-fed4-4643-8d6d-e9703b050ae0"
+						quantity="180" date="2013-01-05T21:37:51.133+01:00" price="6.9"
+						category="sofa"></product>
+					<product id="368e4d45-50d9-433c-b0f5-36ab8eb0db23" href="0ba04f65-fed4-4643-8d6d-e9703b050ae0"
+						quantity="1050" date="2013-01-05T21:37:51.133+01:00" price="75.9"
+						category="sofa"></product>
+					<product id="31bfb078-ed5e-4c4a-b162-1b234292fbd3" href="0ba04f65-fed4-4643-8d6d-e9703b050ae0"
+						quantity="670" date="2013-01-05T21:37:51.133+01:00" price="110.4"
+						category="printer"></product>
+					<product id="3c1fcc8a-fc54-4299-ad8a-41d4a3ad2562" href="0ba04f65-fed4-4643-8d6d-e9703b050ae0"
+						quantity="117" date="2013-01-05T21:37:51.133+01:00" price="121.9"
+						category="soda"></product>
+				</products>
+			</person>
+		</persons>
+	</Body>
+</Message>

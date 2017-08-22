@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+  
+	<include
+		uri="configuration.properties" />
+		
+	<bean id="signon_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/signon.csv}"/>
+            <property name="columns" value="username,password"/>
+            <property name="separator" value=";"/>		
+	</bean>
+		
+	<bean id="account_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/account.csv}"/>
+            <property name="columns" value="userid,email,firstname,lastname,status,addr1,addr2,city,state,zip,country,phone"/>
+            <property name="separator" value=";"/>		
+	</bean>
+
+	<bean id="profile_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/profile.csv}"/>
+            <property name="columns" value="userid,langpref,favcategory,mylistopt,banneropt"/>
+            <property name="separator" value=";"/>		
+	</bean>
+	
+	<bean id="bannerdata_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/bannerdata.csv}"/>
+            <property name="columns" value="favcategory,bannername"/>
+            <property name="separator" value=";"/>		
+	</bean>
+
+	<bean id="category_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/category.csv}"/>
+            <property name="columns" value="catid,name,descn"/>
+            <property name="separator" value=";"/>		
+	</bean>
+	
+	<bean id="product_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/product.csv}"/>
+            <property name="columns" value="productid,category,name,descn"/>
+            <property name="separator" value=";"/>		
+	</bean>
+	
+	<bean id="supplier_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/supplier.csv}"/>
+            <property name="columns" value="suppid,name,status,addr1,addr2,city,state,zip,phone"/>
+            <property name="separator" value=";"/>		
+	</bean>
+
+	<bean id="item_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/item.csv}"/>
+            <property name="columns" value="itemid,productid,listprice,unitcost,supplier,status,attr1,attr2,attr3,attr4,attr5"/>
+            <property name="separator" value=";"/>		
+	</bean>
+
+	<bean id="inventory_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/inventory.csv}"/>
+            <property name="columns" value="itemid,qty"/>
+            <property name="separator" value=";"/>		
+	</bean>
+	
+	<bean id="orders_csv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/orders.csv}"/>
+            <property name="columns" value="orderid,userid,orderdate,shipaddr1,shipaddr2,shipcity,shipstate,
+            									shipzip,shipcountry,billaddr1,billaddr2,billcity,billstate,
+            									billzip,billcountry,courier,totalprice,billtofirstname,billtolastname,
+            									shiptofirstname,shiptolastname,creditcard,exprdate,cardtype,locale"/>
+            <property name="separator" value=";"/>		
+	</bean>
+	
+	    <generate name="account" count="{account_count}" consumer="account_csv">
+	    
+	    	<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+	        <variable  name="address1" generator="org.databene.domain.address.AddressGenerator"/>
+	        <variable  name="address2" generator="org.databene.domain.address.AddressGenerator"/>	        
+	        
+	        <attribute name="userid" script="'firstname' + increment + '.' + 'lastname' + increment"/>
+			<attribute name="email" script="'firstname' + increment + '.' + 'lastname' + increment + '@google.com'" />	        
+			<attribute name="firstname" script="'firstname' + increment" />
+			<attribute name="lastname" script="'lastname' + increment" />
+			<attribute name="status" pattern="['OK','KO']" />
+			<attribute name="addr1" script="address1.street" />
+			<attribute name="addr2" script="address2.street" />			
+			<attribute name="city" script="address1.city.name" />
+			<attribute name="state" script="address1.state" />
+			<attribute name="zip" script="address1.postalCode" />
+			<attribute name="country" script="address1.country.name" />
+			<attribute name="phone" script="address1.privatePhone.localNumber" />
+			
+		    <generate name="signon" count="1" consumer="signon_csv">
+		    
+		        <attribute name="username" script="account.userid"/>
+				<attribute name="password" script="'passwd_'+account.lastname" />	        
+			</generate>
+
+		    <generate name="profile" count="1" consumer="profile_csv">
+		    
+				<variable name="categories" type="entity" source="{ftl:${resources_dir}/import.categories.csv}" distribution="random" separator=";"/>
+				<variable  name="country" generator="org.databene.domain.address.CountryGenerator" locale="en"/>	    
+	
+		        <attribute name="userid" script="account.userid"/>
+		        <attribute name="langpref" script="country.name" />
+				<attribute name="favcategory" source="categories.label" />
+				<attribute name="mylistopt" pattern="[true,false]" />
+				<attribute name="banneropt" pattern="[true,false]" />										        
+			</generate>
+			
+		    <generate name="orders" count="1" consumer="orders_csv">
+		    
+		    	<variable name="creditcard" type="entity" source="{ftl:${resources_dir}/import.creditcard.csv}" distribution="random" separator=";"/>
+				<variable name="id_order" generator="org.databene.benerator.primitive.IncrementGenerator"/>		    	
+		        <variable  name="shipaddress1" generator="org.databene.domain.address.AddressGenerator"/>
+		        <variable  name="shipaddress2" generator="org.databene.domain.address.AddressGenerator"/>
+		        <variable  name="billaddress1" generator="org.databene.domain.address.AddressGenerator"/>
+		        <variable  name="billaddress2" generator="org.databene.domain.address.AddressGenerator"/>
+
+				<attribute name="orderid" script="id_order" />
+				<attribute name="userid" script="account.userid" />
+				<attribute name="orderdate" pattern="200[0-9]\-1[0-2]\-[0-1][1-9]" />
+				<attribute name="shipaddr1" script="shipaddress1.street" />						
+				<attribute name="shipaddr2" script="shipaddress2.street" />
+				<attribute name="shipcity" script="shipaddress1.city.name" />
+				<attribute name="shipstate" script="shipaddress1.state" />
+				<attribute name="shipzip" script="shipaddress1.zipCode" />
+				<attribute name="shipcountry" script="shipaddress1.country.name" />
+				<attribute name="billaddr1" script="billaddress1.street" />
+				<attribute name="billaddr2" script="billaddress2.street" />
+				<attribute name="billcity" script="billaddress1.city.name" />
+				<attribute name="billstate" script="billaddress1.state" />
+				<attribute name="billzip" script="billaddress1.zipCode" />
+				<attribute name="billcountry" script="shipaddress1.country.name" />
+				<attribute name="courier" script="{ftl:account.firstname.'@'.account.lastname}" />
+				<attribute name="totalprice" pattern="10[1-9]" />
+				<attribute name="billtofirstname" script="account.firstname" />
+				<attribute name="billtolastname" script="account.lastname" />
+				<attribute name="shiptofirstname" script="account.firstname" />
+				<attribute name="shiptolastname" script="account.lastname" />
+				<attribute name="creditcard" generator="org.databene.domain.finance.CreditCardNumberGenerator" />
+				<attribute name="exprdate" pattern="200[0-9]\-1[0-2]\-[0-1][1-9]" />
+				<attribute name="cardtype" script="creditcard.cardtype" />
+				<attribute name="locale" values="'fr'" />
+			</generate>
+			
+			
+		</generate>
+
+	    <generate name="bannerdata" count="{bannerdata_count}" consumer="bannerdata_csv">
+	    
+			<variable name="categories" type="entity" source="{ftl:${resources_dir}/import.categories.csv}" distribution="step" separator=";"/>
+
+			<attribute name="favcategory" source="categories.label" />
+			<attribute name="bannername" script="categories.label + ' name'" />
+		</generate>
+
+	    <generate name="category" count="{category_count}" consumer="category_csv">
+	    
+			<variable name="categories" type="entity" source="{ftl:${resources_dir}/import.categories.csv}" distribution="step" separator=";"/>
+
+			<attribute name="catid" source="categories.label"/>
+			<attribute name="name" script="categories.description" />
+			<attribute name="descn" script="'desc ' + categories.label" />
+		</generate>
+
+	    <generate name="product" count="{product_count}" consumer="product_csv">
+	    
+			<variable name="categories" type="entity" source="{ftl:${resources_dir}/import.categories.csv}" distribution="random" separator=";"/>
+			<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+
+			<attribute name="productid" script="'PRODUCT-' + increment" />
+			<attribute name="category" script="categories.label" />
+			<attribute name="name" script="'name-' + increment" />
+			<attribute name="descn" script="'description-' + increment" />
+		</generate>
+
+	    <generate name="supplier" count="{supplier_count}" consumer="supplier_csv">
+	    
+			<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+	        <variable  name="address1" generator="org.databene.domain.address.AddressGenerator"/>
+	        <variable  name="address2" generator="org.databene.domain.address.AddressGenerator"/>	        
+
+			<attribute name="suppid" script="increment" />
+			<attribute name="name" script="'supplier-' + increment" />
+			<attribute name="status" pattern="['OK','KO']" />
+			<attribute name="addr1" script="address1.street" />
+			<attribute name="addr2" script="address2.street" />
+			<attribute name="city" script="address1.city.name" />
+			<attribute name="state" script="address1.state" />
+			<attribute name="zip" script="address1.zipCode" />
+			<attribute name="phone" script="address1.officePhone" />									
+		</generate>
+		
+	    <generate name="item" count="{supplier_count}" consumer="item_csv">
+	    
+			<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" min="1"/>
+			
+			<attribute name="productidgen" type="int" min="1" max="{product_count}"  distribution="random"/>
+			<attribute name="suppliergen" type="int" min="1" max="{supplier_count}"  distribution="random"/>
+	        
+			<attribute name="itemid" script="'ITEM-' + increment" />
+			<attribute name="productid" script="'PRODUCT-' + item.productidgen" />
+			<attribute name="listprice" pattern="1[1-9]\.[0-9][0-9]" />
+			<attribute name="unitcost" pattern="1[1-9]\.[0-9][0-9]" />
+			<attribute name="supplier" script="item.suppliergen" />
+			<attribute name="status" pattern="['OK','KO']" />
+			<attribute name="attr1" values="'P'" />
+			<attribute name="attr2" values="" />
+			<attribute name="attr3" values="" />
+			<attribute name="attr4" values="" />
+			<attribute name="attr5" values="" />
+		</generate>
+
+	    <generate name="inventory" count="{inventory_count}" consumer="inventory_csv">
+	    
+	    	<variable name="increment" generator="org.databene.benerator.primitive.IncrementGenerator" min="1"/>
+	    
+			<attribute name="itemid" script="increment" />
+			<attribute name="qty" type="int" min="1000" max="5000"  distribution="random"/>
+		</generate>
+		
+		
+</setup>

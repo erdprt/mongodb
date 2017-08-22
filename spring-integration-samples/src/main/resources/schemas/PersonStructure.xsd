@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://erdprt.org/PersonStructure" xmlns:tns="http://erdprt.org/PersonStructure" elementFormDefault="qualified">
+
+    <element name="Message" type="tns:MessageType"></element>
+
+    <complexType name="MessageType">
+    	<sequence>
+    		<element name="MetaData" type="tns:MetaDataType" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Body" type="tns:BodyType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="MetaDataType">
+    	<sequence>
+    		<element name="from" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="to" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="contentType" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="BodyType">
+    	<sequence>
+    		<element name="persons" type="tns:PersonsType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="PersonsType">
+    	<sequence>
+    		<element name="person" type="tns:PersonType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="count" type="long"></attribute>
+    </complexType>
+    
+    <complexType name="PersonType">
+    	<attribute name="id" type="string"></attribute>
+    	<attribute name="lastName" type="string"></attribute>
+    	<attribute name="firstName" type="string"></attribute>
+    	<attribute name="civility" type="string"></attribute>
+    	<attribute name="birthDate" type="dateTime"></attribute>
+    	<attribute name="nationality" type="string"></attribute>
+    	<attribute name="street" type="string"></attribute>
+    	<attribute name="city" type="string"></attribute>
+    	<attribute name="zipCode" type="string"></attribute>
+    </complexType>
+</schema>

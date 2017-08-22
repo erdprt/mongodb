@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+<include uri="configuration.properties" />
+
+	<bean id="Fichier_xml" class="org.databene.platform.xml.XMLEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CORZPROD_D_CAS_FSC_${concoursDossier_count}units.xml}" />
+	</bean>
+	
+    <generate type="Fichier" count="1" consumer="Fichier_xml">
+    
+        <attribute name="dateDecl" pattern="{date_pattern}" />
+        <attribute name="dateCrea" script="Fichier.dateDecl" />
+        <attribute name="periode" pattern="[1-2]" />
+        <attribute name="codeAE" values="'CASHZURICH'" />
+        
+    <generate type="ConcoursCredit" count="{concoursDossier_count}" consumer="Fichier_xml">
+        
+		<variable  name="numeroGenerator" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>        
+        
+        <attribute name="numero" script="numeroGenerator" />
+        <attribute name="indTypeConc" pattern="[1-2]" />
+        <attribute name="dateDeb" script="Fichier.dateDecl" />
+        <attribute name="dateFin" script="Fichier.dateDecl" />
+        <attribute name="entiteOrig" pattern="{entiteOrig_pattern}" />
+        <attribute name="codeEntEmet" pattern="{entiteOrig_pattern}" />
+        <attribute name="codeEntBook" pattern="{entiteOrig_pattern}" />
+        <attribute name="appliGeneAutorisation" pattern="{appliGeneAutorisation_pattern}" />
+        <attribute name="indAutorisation" pattern="[A-B]" />
+        <attribute name="senioriteCreance" values="'SEN'" />
+        <attribute name="confCredit" values="'N'" />
+        <attribute name="mntExpoInit" type="int" min="1" max="100000" distribution="random"/>
+        <attribute name="devExpoInit" type="string" pattern="(CHF|JPY|NOK|GBP|SGD|HKD)" />
+        <attribute name="indTirNConnusAv" values="'2'" />
+        <attribute name="libelleConcours" pattern="(SARP INDUSTRIES|SG PARIS DAI|SG PARIS STI ZURICH|NORDEA BANK OSLO|DEUTSCHE FRANKFURT)" />
+        
+		    <generate type="OpeElemCredit" count="1" consumer="Fichier_xml">
+		        
+				<variable  name="numeroGenerator" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>        
+		        
+		        <attribute name="dateDeb" script="Fichier.dateDecl" />
+		        <attribute name="dateFin" script="Fichier.dateDecl" />
+		        <attribute name="natOpe" values="'1'" />
+		        <attribute name="typeCompta" values="'B'" />
+		        <attribute name="etatOpe" values="'ES'" />
+		        <attribute name="numReportCpt" pattern="I[A-B][0-9]{5}"/>
+		        <attribute name="mntExpoCour" type="int" min="1" max="100000" distribution="random" />
+		        <attribute name="devMntExpoCour" type="string" pattern="(GBP|SGD|USD|HKD|EUR)" />
+		        <attribute name="natCredit" values="'D'" />
+		        <attribute name="idOperation" pattern="[0-9]{10}" />
+		        <attribute name="numOrdreClient" values="01" />
+		        <attribute name="numOrdreProduit" values="01" />
+		        
+		    </generate>
+
+		    <generate type="Client" count="1" consumer="Fichier_xml">
+		        
+		        <attribute name="referEntJuri" values="4" />
+		        <attribute name="codeEntJuri" pattern="000[0-9]{7}" />
+		        <attribute name="sectCtrpar" values="'PV'" />
+		        <attribute name="referCltElem" values="5" />
+		        <attribute name="codeCltElem" pattern="000[0-9]{7}" />
+		        <attribute name="nomCltElem" pattern="(SOCIETE GENERALE|BNP PARIBAS)" />
+		        <attribute name="codePays" pattern="(FR|BE|JPY|CH)" />
+		        <attribute name="indContrepartiePrincipale" values="'P'" />
+		        <attribute name="numOrdre" values="01" />		        
+		    </generate>
+
+		    <generate type="SupportDuRisque" count="1" consumer="Fichier_xml">
+		        
+		        <attribute name="codeEntSupRisq" values="01" />
+		        <attribute name="pourParticip" values="1" />
+		    </generate>
+
+		    <generate type="PdtDEVL" count="1" consumer="Fichier_xml">
+		        
+		        <attribute name="codeDEVL" values="00020" />
+		        <attribute name="numOrdre" values="01" />
+		        <attribute name="indDegreRisque" values="'O'" />
+		    </generate>
+		    
+		    <generate type="SLMetier" count="1" consumer="Fichier_xml">
+		        
+		        <attribute name="codeSLMetOrig" values="000256" />
+		        <attribute name="pourSLMetier" values="10000" />
+		        <attribute name="codeSLMetDevl" values="000756" />
+		        <attribute name="indRefCodeSLMetOrigN" values="'ERECA'" />
+		    </generate>
+		    
+		    <generate type="IdentBalois" count="1" consumer="Fichier_xml">
+		        
+		        <attribute name="methBaloise" values="3" />
+		        <attribute name="idPortefeuilleBalois" values="13" />
+		        <attribute name="typeMoteurDeNotation" values="001" />
+		        <attribute name="codeAppliGenNotationOrigin" values="1" />
+		        <attribute name="indRemonteEnPool" values="'N'" />
+		    </generate>        
+		            
+    </generate>
+        
+    </generate>
+	
+</setup>
+	

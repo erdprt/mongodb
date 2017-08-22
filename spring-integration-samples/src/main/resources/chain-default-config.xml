@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:integration-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:integration-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:integration-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/integration/xml
+						http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/integration
+						http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+						http://www.springframework.org/schema/integration/jms
+						http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+    					http://www.springframework.org/schema/integration/jmx
+    					http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
+						http://www.springframework.org/schema/integration/file
+						http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+						http://www.springframework.org/schema/integration/jdbc
+						http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:property-placeholder
+		location="classpath:spring-integration-config.properties" />
+
+	<integration:channel id="splitDefaultChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+  	<integration:outbound-channel-adapter channel="splitDefaultChannel" ref="splitDefaultHandler" method="handle">
+  	</integration:outbound-channel-adapter>
+
+	<bean id="splitDefaultHandler" class="fr.personal.erdprt.integration.handlers.SplitterHandler" scope="prototype">
+		<property name="fileType" value="default"/>
+		<property name="bufferSize" value="${buffer.size.default}"/>
+		<property name="splitter" ref="splitterDefault"/>
+		<property name="messageChannel" ref="defaultValidationChannel"/>
+	</bean>	
+
+	<integration:channel id="defaultValidationChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:validating-filter id="defaultValidation" 
+										input-channel="defaultValidationChannel" 
+										output-channel="defaultFranceFilterChannel"
+										discard-channel="errorChannel"
+										schema-location="classpath:/schemas/DefaultStructure.xsd"
+										schema-type="xml-schema"
+										throw-exception-on-rejection="true">
+	</integration-xml:validating-filter>
+
+	<!-- filter -->
+	<integration:channel id="defaultFranceFilterChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	<!--
+		<integration:dispatcher task-executor="executor"/>
+  		-->		
+	</integration:channel>
+
+	<integration-xml:xpath-filter id="defaultFranceFilter"  
+									input-channel="defaultFranceFilterChannel" 
+									output-channel="enricherDefaultChannel" 
+									discard-channel="defaultFilterDiscardChannel" 
+									xpath-expression-ref="defaultFranceFilterExpression"
+									match-type="case-insensitive"
+									match-value="france">
+	</integration-xml:xpath-filter>
+
+	<integration-xml:xpath-expression id="defaultFranceFilterExpression" 
+				expression='/ns1:Message/ns1:Body/ns1:persons/ns1:person/ns1:civilStatus/ns1:nationality'
+				ns-uri="http://erdprt.org/DefaultStructure" ns-prefix="ns1" >
+	</integration-xml:xpath-expression>
+
+	<integration:channel id="enricherDefaultChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:header-enricher input-channel="enricherDefaultChannel" output-channel="routerDefaultChannel">
+	     <integration:header name="channels" ref="defaultDestinations"/>
+	</integration:header-enricher>
+
+	<bean id="defaultDestinations" class="org.springframework.beans.factory.config.ListFactoryBean">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list>
+				<value>defaultToCsvTransformChannel</value>
+				<value>defaultToPersonTransformChannel</value>
+				<value>defaultToProductTransformChannel</value>				
+			</list>
+		</property>
+	</bean>
+
+	<integration:channel id="routerDefaultChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:router input-channel="routerDefaultChannel" expression="headers.channels">
+	</integration:router>
+
+	<!-- defaultToCsv transforming -->
+	<integration:channel id="defaultToCsvTransformChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:xslt-transformer id="defaultToCsvTransform" 
+										input-channel="defaultToCsvTransformChannel" 
+										output-channel="defaultToCsvEnricherChannel" 
+										xsl-resource="classpath:/xsl/defaultToCsv.xsl">
+	</integration-xml:xslt-transformer>
+
+	<integration:channel id="defaultToCsvEnricherChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:header-enricher input-channel="defaultToCsvEnricherChannel" output-channel="outputChannel">
+	     <integration:header name="extensionFile" value="csv"/>
+	</integration:header-enricher>
+
+
+	<!-- default To Person transforming -->
+	<integration:channel id="defaultToPersonTransformChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:xslt-transformer id="defaultToPersonTransform" 
+										input-channel="defaultToPersonTransformChannel" 
+										output-channel="defaultToPersonEnricherChannel" 
+										xsl-resource="classpath:/xsl/defaultToPerson.xsl">
+	</integration-xml:xslt-transformer>
+
+	<integration:channel id="defaultToPersonEnricherChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:header-enricher input-channel="defaultToPersonEnricherChannel" output-channel="personValidationChannel">
+	     <integration:header name="extensionFile" value="xml"/>
+	</integration:header-enricher>
+
+
+	<integration:channel id="personValidationChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:validating-filter id="personValidation" 
+										input-channel="personValidationChannel" 
+										output-channel="outputChannel"
+										discard-channel="errorChannel"
+										schema-location="classpath:/schemas/PersonStructure.xsd"
+										schema-type="xml-schema">
+	</integration-xml:validating-filter>
+
+
+	<!-- default To Product transforming -->
+	<integration:channel id="defaultToProductTransformChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:xslt-transformer id="defaultToProductTransform" 
+										input-channel="defaultToProductTransformChannel" 
+										output-channel="defaultToProductEnricherChannel" 
+										xsl-resource="classpath:/xsl/defaultToProduct.xsl">
+	</integration-xml:xslt-transformer>
+	
+	<integration:channel id="defaultToProductEnricherChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:header-enricher input-channel="defaultToProductEnricherChannel" output-channel="productValidationChannel">
+	     <integration:header name="extensionFile" value="xml"/>
+	</integration:header-enricher>
+	
+	
+	<integration:channel id="productValidationChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:validating-filter id="productValidation" 
+										input-channel="productValidationChannel" 
+										output-channel="outputChannel"
+										discard-channel="errorChannel"
+										schema-location="classpath:/schemas/ProductStructure.xsd"
+										schema-type="xml-schema">
+	</integration-xml:validating-filter>
+	
+	
+	<integration:channel id="defaultFilterDiscardChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	<!--
+		<integration:dispatcher task-executor="executor"/>
+	-->
+	</integration:channel>
+	
+	<file:outbound-channel-adapter id="discardDefaultOutput" 
+									channel="defaultFilterDiscardChannel" 
+									directory="${folders.discard.default}" 
+									filename-generator="defaultFileGenerator">
+	</file:outbound-channel-adapter>
+	
+	<!-- Splitters -->
+	
+	<bean id="splitterDefault" class="fr.personal.erdprt.integration.splitters.DefaultSplitterImpl" scope="prototype">
+    	<property name="elementName" value="person"/>
+    	<property name="splitReader" ref="splitStringReader"/>
+    	<property name="countElementName" value="persons"/>
+	</bean>	
+	  
+</beans>

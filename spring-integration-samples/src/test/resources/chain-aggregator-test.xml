@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:integration-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:integration-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:integration-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/integration/xml
+						http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/integration
+						http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+						http://www.springframework.org/schema/integration/jms
+						http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+    					http://www.springframework.org/schema/integration/jmx
+    					http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
+						http://www.springframework.org/schema/integration/file
+						http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+						http://www.springframework.org/schema/integration/jdbc
+						http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:property-placeholder
+		location="classpath:spring-integration-config-test.properties" />
+
+	<integration:channel id="splitDefaultChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+  	<integration:outbound-channel-adapter channel="splitDefaultChannel" ref="splitDefaultHandler" method="handle">
+  	</integration:outbound-channel-adapter>
+
+	<bean id="splitDefaultHandler" class="fr.personal.erdprt.integration.handlers.SplitterHandler" scope="prototype">
+		<property name="fileType" value="default"/>
+		<property name="bufferSize" value="${buffer.size.default}"/>
+		<property name="splitter" ref="splitterDefault"/>
+		<property name="messageChannel" ref="defaultValidationChannel"/>
+	</bean>	
+	
+	<bean id="splitterDefault" class="fr.personal.erdprt.integration.splitters.DefaultSplitterImpl" scope="prototype">
+    	<property name="elementName" value="person"/>
+    	<property name="splitReader" ref="splitStringReader"/>
+    	<property name="countElementName" value="persons"/>
+	</bean>	
+
+	<bean id="splitStringReader" class="fr.personal.erdprt.integration.splitters.readers.SplitStringReader" scope="prototype">
+	</bean>	
+	
+	<integration:channel id="defaultValidationChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+	
+	<integration-xml:validating-filter id="defaultValidation" 
+										input-channel="defaultValidationChannel" 
+										output-channel="aggregatorDefaultChannel"
+										discard-channel="errorChannel"
+										schema-location="classpath:/schemas/DefaultStructure.xsd"
+										schema-type="xml-schema"
+										throw-exception-on-rejection="true">
+	</integration-xml:validating-filter>
+	
+	
+	<integration:channel id="aggregatorDefaultChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+	<integration:aggregator id="aggregatorDefaultHandler" 
+							input-channel="aggregatorDefaultChannel" 
+							output-channel="outputChannel" 
+							ref="defaultAggregator"
+							method="aggregate"
+							correlation-strategy="defaultAggregator"
+							correlation-strategy-method="getCorrelationKey"
+							release-strategy="defaultAggregator"
+							release-strategy-method="canRelease">
+	</integration:aggregator>
+	
+	<bean id="defaultAggregator" class="fr.personal.erdprt.integration.aggregators.SimpleAggregator">
+	</bean>
+	
+	<integration:channel id="outputChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="outputFiles" 
+									channel="outputChannel" 
+									directory="${folders.outgoing}" 
+									filename-generator="defaultFileGenerator"/>
+	
+	<integration:channel id="errorChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+		<!--	
+		<integration:dispatcher task-executor="executor"/>
+		  -->
+	</integration:channel>
+
+	<bean id="errorHandler" class="fr.personal.erdprt.integration.handlers.ErrorHandler">
+	</bean>
+
+	<integration:chain id="errorHandle" input-channel="errorChannel" output-channel="errorOutputChannel">
+		<integration:service-activator ref="errorHandler" method="handle"/>
+	</integration:chain>
+
+	<integration:channel id="errorOutputChannel">
+		<integration:queue capacity="${queue.capacity}"/>
+	</integration:channel>
+
+
+	<!-- Error channel -->
+	<file:outbound-channel-adapter id="errorFiles" 
+									channel="errorOutputChannel" 
+									directory="${folders.errors}" 
+									filename-generator="fileGenerator"/>
+	
+	
+	<integration:poller id="defaultPoller" 
+						default="true" 
+						max-messages-per-poll="${default.poller.maxMessagePerPoll}"
+						fixed-rate="${default.poller.fixedRate}"/>
+	
+	<bean id="defaultFileGenerator" class="fr.personal.erdprt.integration.generators.UUIDFileNameGenerator">
+	</bean>
+	
+	<bean id="fileGenerator" class="fr.personal.erdprt.integration.generators.DefaultFileNameGenerator">
+	</bean>
+	
+		  
+</beans>

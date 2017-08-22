@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup 	xmlns="http://databene.org/benerator/0.6.3"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://databene.org/benerator/0.6.3 http://databene.org/benerator-0.6.3.xsd">
+
+  <import defaults="true"/>
+  
+  <include uri="src/main/resources/descriptors/caveatemptor-postgresql/configuration.properties" />
+	<!--
+    <bean id="int_gen3" class="org.databene.benerator.primitive.number.adapter.IntegerGenerator">
+    	<property name="precision" value="random"/> 
+	</bean>
+  	-->
+
+    <bean id="datetime_gen" class="org.databene.benerator.primitive.datetime.DateTimeGenerator"> 
+    	<property name="minDate" value="2007-06-21"/>
+    	<property name="maxDate" value="2007-09-21"/>
+    	<property name="datePrecision" value="0000-00-01"/>
+    	<property name="dateDistribution" value="random"/>
+    	<property name="minTime" value="09:00:00"/>
+    	<property name="maxTime" value="17:00:00"/>
+    	<property name="timePrecision" value="00:00:01"/>
+    	<property name="timeDistribution" value="random"/>
+	</bean>
+
+    <bean id="increment_gen" class="org.databene.benerator.primitive.IncrementGenerator"> 
+    	<property name="min" value="{ftl:${category_count+1}}"/>
+    	<property name="max" value="{ftl:${category_count*1.5}}"/>
+    	<property name="increment" value="1"/>
+	</bean>
+
+    <bean id="increment_gen1" class="org.databene.benerator.primitive.IncrementGenerator"> 
+    	<property name="min" value="{ftl:${category_count/2}}"/>
+    	<property name="max" value="{ftl:${category_count}}"/>
+    	<property name="increment" value="1"/>
+	</bean>
+
+    <bean id="increment_gen2" class="org.databene.benerator.primitive.IncrementGenerator"> 
+    	<property name="min" value="{ftl:${users_count/2}}"/>
+    	<property name="max" value="{ftl:${users_count}}"/>
+    	<property name="increment" value="2"/>
+	</bean>
+  
+  <bean id="datetimegen" class="org.databene.benerator.primitive.datetime.DateTimeGenerator">
+    <property name="minDate" value="2008-01-01"/>
+    <property name="maxDate" value="2008-01-10"/>
+    <property name="datePrecision" value="0000-00-01"/>
+    <property name="dateDistribution" value="random"/>
+    <property name="minTime" value="09:00:00"/>
+    <property name="maxTime" value="18:00:00"/>
+    <property name="timePrecision" value="00:00:01"/>
+    <property name="timeDistribution" value="random"/>
+  </bean>
+
+  <bean id="category" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/category.csv}"/>
+    <property name="columns" value="CATEGORY_ID,OBJ_VERSION,CATEGORY_NAME, 
+    									CREATED,PARENT_CATEGORY_ID"/>
+    <property name="separator" value=";"/>
+  </bean>
+
+
+  <bean id="billingdetails" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/billingdetails.csv}"/>
+    <property name="columns" value="BILLING_DETAILS_ID,BILLING_DETAILS_TYPE,OBJ_VERSION,
+    									OWNER,CREATED,USER_ID,BA_ACCOUNT,BA_BANKNAME,BA_SWIFT"/>
+    <property name="separator" value=";"/>
+  </bean>
+
+  <bean id="creditcard" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/creditcard.csv}"/>
+    <property name="columns" value="CREDIT_CARD_ID,CC_TYPE,CC_NUMBER,
+    									CC_EXP_MONTH,CC_EXP_YEAR"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <bean id="address" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/address.csv}"/>
+    <property name="columns" value="ADDRESS_ID,OBJ_VERSION,STREET,ZIPCODE,CITY"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <bean id="billingaddress" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/billingaddress.csv}"/>
+    <property name="columns" value="ADDRESS_ID,STREET,ZIPCODE,CITY"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <bean id="users" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/users.csv}"/>
+    <property name="columns" value="USER_ID,OBJ_VERSION,FIRSTNAME,LASTNAME,USERNAME,PASSWORD, 
+    									EMAIL,RANK,IS_ADMIN,CREATED,DEFAULT_BILLING_DETAILS_ID,HOME_STREET,HOME_ZIPCODE,HOME_CITY"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <bean id="auditlog" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/auditlog.csv}"/>
+    <property name="columns" value="AUDIT_LOG_ID,MESSAGE,ENTITY_ID,ENTITY_CLASS,USER_ID,CREATED"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <bean id="item" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/item.csv}"/>
+    <property name="columns" value="ITEM_ID,OBJ_VERSION,ITEM_NAME,DESCRIPTION,INITIAL_PRICE,
+    									INITIAL_PRICE_CURRENCY,RESERVE_PRICE,RESERVE_PRICE_CURRENCY,
+    									START_DATE,END_DATE,ITEM_STATE,APPROVAL_DATETIME,CREATED,
+    									APPROVED_BY_USER_ID,SELLER_ID"/>
+    <property name="separator" value=";"/>
+  </bean>
+
+  <bean id="bid" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/bid.csv}"/>
+    <property name="columns" value="BID_ID,BID_AMOUNT,BID_AMOUNT_CURRENCY,CREATED,
+    									IS_SUCCESSFUL,ITEM_ID,BIDDER_ID,BID_POSITION"/>
+    <property name="separator" value=";"/>
+  </bean>
+
+  <bean id="categoryitem" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/categoryitem.csv}"/>
+    <property name="columns" value="CATEGORY_ID,ITEM_ID,DISPLAY_POSITION"/>
+    <property name="separator" value=";"/>
+  </bean>
+  
+  <generate name="usersentities" count="{ftl:${users_count}}" consumer="users">
+  
+    <variable  name="person" generator="org.databene.domain.person.PersonGenerator"/>
+    <variable  name="addressHome" generator="org.databene.domain.address.AddressGenerator" locale="fr"/>
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    <variable  name="bankaccount_gen" generator="org.databene.domain.finance.BankAccountGenerator"/>
+    <variable name="detailstype" type="entity" source="{ftl:${resources_dir}/import.detailstype.csv}" distribution="step" cyclic="true"/>    
+    <variable  name="idgen2" generator="org.databene.benerator.primitive.IncrementGenerator"/>          
+    <variable  name="idgen3" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    <variable  name="idgen4" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    
+    <attribute name="USER_ID" script="{${idgen}}"/>
+    <attribute name="OBJ_VERSION" values="10" />
+    <attribute name="FIRSTNAME" script="{${person.familyName}}" />
+    <attribute name="LASTNAME" script="{${person.givenName}}" />
+    <attribute name="USERNAME" script="{${person.givenName}.${person.familyName}}" />
+    <attribute name="PASSWORD" script="{${person.givenName}}" />
+    <attribute name="EMAIL" script="{${person.givenName}.${person.familyName}@gmail.com}" />
+    <attribute name="RANK" type="int" min="1" max="25" distribution="random"/>
+    <attribute name="IS_ADMIN" type="int" min="0" max="1" distribution="random" />
+    <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random"/>
+    <attribute name="DEFAULT_BILLING_DETAILS_ID" script="{${idgen}}" />
+    <attribute name="HOME_STREET" script="{${addressHome.street}}" />
+    <attribute name="HOME_ZIPCODE" script="{${addressHome.zipCode}}" />
+    <attribute name="HOME_CITY" script="{${addressHome.city}}" />
+
+	<!-- problem!!  -->
+    <generate name="auditlogentity" count="1" consumer="auditlog">
+      <attribute  name="AUDIT_LOG_ID" source="usersentities.USER_ID"/>
+      <attribute name="MESSAGE" pattern="message sample [0-9]*5"/>
+      <attribute name="ENTITY_ID" values="1" />
+      <attribute name="ENTITY_CLASS" pattern="{entityclass_pattern}" />
+      <attribute name="USER_ID" source="usersentities.USER_ID"/>
+      <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random" />
+    </generate>
+
+    
+    <generate name="addressentity" count="1" consumer="address">
+      <variable  name="address" generator="org.databene.domain.address.AddressGenerator" locale="fr"/>
+      <attribute name="ADDRESS_ID" source="usersentities.USER_ID"/>
+      <attribute name="OBJ_VERSION" values="1" />
+      <attribute name="STREET" script="{${address.street}}" />
+      <attribute name="ZIPCODE" script="{${address.zipCode}}" />
+      <attribute name="CITY" script="{${address.city}}" />
+    </generate>
+    
+    <generate name="billingaddressentity" count="1" consumer="billingaddress">
+      <variable  name="billingaddress" generator="org.databene.domain.address.AddressGenerator"/>
+      <attribute name="ADDRESS_ID" source="usersentities.USER_ID"/>
+      <attribute name="STREET" script="{${billingaddress.street}}" />
+      <attribute name="ZIPCODE" script="{${billingaddress.zipCode}}" />
+      <attribute name="CITY" script="{${billingaddress.city}}" />
+    </generate>
+
+    <generate name="billingdetailsentity" count="1" consumer="billingdetails">
+      <attribute name="BILLING_DETAILS_ID" script="{${idgen2}}" />
+      <attribute name="BILLING_DETAILS_TYPE" script="{${detailstype.value}}" />
+      <attribute name="OBJ_VERSION" values="1" />
+      <attribute name="OWNER" source="usersentities.USERNAME" />
+      <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random"/>
+      <attribute name="USER_ID" source="usersentities.USER_ID" />
+      <attribute name="BA_ACCOUNT" script="{${bankaccount_gen.accountNumber}}" />
+      <attribute name="BA_BANKNAME" script="{${bankaccount_gen.bankName}}" />
+      <attribute name="BA_SWIFT" script="{${bankaccount_gen.bic}}" />
+    </generate>
+
+    <generate name="itementity" count="1" consumer="item">
+
+      <attribute name="ITEM_ID" script="{ftl:${idgen3}}"/>
+      <attribute name="OBJ_VERSION" values="1"/>
+      <attribute name="ITEM_NAME" pattern="item name [A-Z][a-z]{5,12}"/>
+	  <attribute name="DESCRIPTION" pattern="description [A-Z][a-z]{5,12}"/>
+	  <attribute name="INITIAL_PRICE" type="float" min="500" max="2000" distribution="random"/>
+	  <attribute name="INITIAL_PRICE_CURRENCY" values="{${currency}}" />
+	  <attribute name="RESERVE_PRICE" type="float" min="50" max="100" distribution="random" />
+	  <attribute name="RESERVE_PRICE_CURRENCY" values="{${currency}}" />
+	  <attribute name="START_DATE" pattern="{startdatetime_pattern}" distribution="random" />
+	  <attribute name="END_DATE" pattern="{enddatetime_pattern}" distribution="random" />
+	  <attribute name="ITEM_STATE" pattern="(ACTIVE|INACTIVE|DRAFT)" />
+	  <attribute name="APPROVAL_DATETIME" pattern="{datetime_pattern}" distribution="random" />
+	  <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random" />
+	  <attribute name="APPROVED_BY_USER_ID" source="usersentities.USER_ID" />
+	  <attribute name="SELLER_ID" source="usersentities.USER_ID"/>
+	  
+    	<generate name="categoryitementity" count="1" consumer="categoryitem">
+      		<attribute name="CATEGORY_ID" type="int" min="1" max="{ftl:${users_count}}" distribution="random" />
+      		<attribute name="ITEM_ID" source="itementity.ITEM_ID"/>
+      		<attribute name="DISPLAY_POSITION" type="int" min="1" max="10" distribution="random"/>
+		</generate>
+	  
+    	<generate name="bidentity" count="1" consumer="bid">
+      		<attribute name="BID_ID" source="itementity.ITEM_ID"/>
+      		<attribute name="BID_AMOUNT" type="float" min="500" max="2000" distribution="random"/>
+      		<attribute name="BID_AMOUNT_CURRENCY" values="{${currency}}"/>
+      		<attribute name="CREATED" pattern="{datetime_pattern}" distribution="random"/>
+      		<attribute name="IS_SUCCESSFUL" pattern="(0|1)"/>
+      		<attribute name="ITEM_ID" source="itementity.ITEM_ID"/>
+      		<attribute name="BIDDER_ID" source="usersentities.USER_ID"/>
+      		<attribute name="BID_POSITION" pattern="[0-6]"/>
+		</generate>
+	</generate>
+  	
+  </generate>
+
+    <generate name="creditcardentity" count="{ftl:${users_count/2}}" consumer="creditcard">
+      <variable name="creditcardtype" type="entity" source="{ftl:${resources_dir}/import.creditcardtype.csv}" distribution="random"/>
+      <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>          
+          
+      <attribute name="CREDIT_CARD_ID" source="increment_gen2" />
+      <attribute name="CC_TYPE" script="{${creditcardtype.value}}" />
+      <attribute name="CC_NUMBER" generator="org.databene.domain.finance.CreditCardNumberGenerator" />
+      <attribute name="CC_EXP_MONTH" type="int" min="1" max="12" distribution="random" />
+      <attribute name="CC_EXP_YEAR" type="int" min="1970" max="2009" distribution="random" />
+    </generate>
+
+    <generate name="categoryentity" count="{ftl:${category_count}}" consumer="category">
+      <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+      <variable name="detailstype" type="entity" source="{ftl:${resources_dir}/import.detailstype.csv}" distribution="step" cyclic="true"/>          
+          
+      <attribute name="CATEGORY_ID" script="{ftl:${idgen}}" />
+      <attribute name="OBJ_VERSION" values="1" />
+      <attribute name="CATEGORY_NAME" script="{category-${idgen}}" />
+      <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random" />
+    </generate>
+
+    <generate name="categoryparententity" count="{ftl:${category_count}}" consumer="category">
+      <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>          
+
+      <attribute name="CATEGORY_ID" source="increment_gen" />
+      <attribute name="OBJ_VERSION" values="1" />
+      <attribute name="CATEGORY_NAME" script="{category-${idgen}-${categoryparententity.CATEGORY_ID}}"/>
+      <attribute name="CREATED" pattern="{datetime_pattern}" distribution="random" />
+      <attribute name="PARENT_CATEGORY_ID" source="increment_gen1" />
+    </generate>
+
+ 
+</setup>
+

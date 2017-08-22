@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/ProductStructure">
+  <MetaData>
+    <from>application1</from>
+    <to>application2</to>
+    <contentType>xml</contentType>
+  </MetaData>
+  <Body>
+    <products count="1">
+      <product id="be5f162c-17f7-418b-9d44-ea469acf9dbf" quantity="165" date="2012-12-31T18:24:29.341+01:00" price="112.7" category="computer"></product>
+    </products>
+  </Body>
+</Message>

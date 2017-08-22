@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/DefaultStructure">
+	<MetaData>
+		<from>fromV</from>
+		<to>toV</to>
+		<contentType>xml</contentType>
+	</MetaData>
+	<Body>
+		<persons count="2">
+			<person id="021f9006-4044-43cb-a6ac-de938ce5fc16">
+				<civilStatus>
+					<lastName>lastName-0</lastName>
+					<firstName>firName-0</firstName>
+					<civility>M</civility>
+					<birthDate>2012-12-31T20:07:14.160+01:00</birthDate>
+					<nationality>USA</nationality>
+				</civilStatus>
+				<address>
+					<street>street-0</street>
+					<city>Rennes</city>
+					<zipCode>75002</zipCode>
+				</address>
+				<products count="1">
+					<product id="93ca2b7e-7d38-4cc1-b966-91f428b54c62" href="021f9006-4044-43cb-a6ac-de938ce5fc16"
+						quantity="876" date="2012-12-31T20:07:14.160+01:00" price="20.7"
+						category="food"></product>
+				</products>
+			</person>
+			<person id="ef2dfa06-f9b2-48cd-b0f7-25651632391a">
+				<civilStatus>
+					<lastName>lastName-1</lastName>
+					<firstName>firName-1</firstName>
+					<civility>F</civility>
+					<birthDate>2012-12-31T20:07:14.160+01:00</birthDate>
+					<nationality>france</nationality>
+				</civilStatus>
+				<address>
+					<street>street-1</street>
+					<city>Strasbourg</city>
+					<zipCode>00000</zipCode>
+				</address>
+				<products count="2">
+					<product id="6a9b35b1-e9bf-4e2b-9941-416111c8e361" href="ef2dfa06-f9b2-48cd-b0f7-25651632391a"
+						quantity="311" date="2012-12-31T20:07:14.160+01:00" price="193.2"
+						category="ligth"></product>
+					<product id="62b1add6-a6d9-4d75-b9a8-984889f78a70" href="ef2dfa06-f9b2-48cd-b0f7-25651632391a"
+						quantity="353" date="2012-12-31T20:07:14.160+01:00" price="105.8"
+						category="printer"></product>
+				</products>
+			</person>
+		</persons>
+	</Body>
+</Message>

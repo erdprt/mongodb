@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:integration-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:integration-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:integration-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/integration/xml
+						http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/integration
+						http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+						http://www.springframework.org/schema/integration/jms
+						http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+    					http://www.springframework.org/schema/integration/jmx
+    					http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
+						http://www.springframework.org/schema/integration/file
+						http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+						http://www.springframework.org/schema/integration/jdbc
+						http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:property-placeholder
+		location="classpath:spring-integration-config.properties" />
+
+	<!-- CHAIN FOR PRODUCT -->
+	
+	<integration:channel id="splitProductChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>
+	
+  	<integration:outbound-channel-adapter channel="splitProductChannel" ref="splitProductHandler" method="handle">
+  	</integration:outbound-channel-adapter>
+
+	<bean id="splitProductHandler" class="fr.personal.erdprt.integration.handlers.SplitterHandler" >
+		<property name="fileType" value="product"/>
+		<property name="bufferSize" value="${buffer.size.default}"/>
+		<property name="splitter" ref="splitterProduct"/>
+		<property name="messageChannel" ref="productToCsvTransformChannel"/>
+	</bean>	
+
+	<bean id="splitterProduct" class="fr.personal.erdprt.integration.splitters.DefaultSplitterImpl" >
+    	<property name="elementName" value="product"/>
+    	<property name="splitReader" ref="splitStringReader"/>
+	</bean>	
+
+	<integration:channel id="productToCsvTransformChannel">
+		<integration:queue capacity="${queue.capacity}"/>	
+	</integration:channel>	
+
+	<integration-xml:xslt-transformer id="productToCsvTransform" 
+										input-channel="productToCsvTransformChannel" 
+										output-channel="outputChannel" 
+										xsl-resource="classpath:/xsl/productToCsv.xsl">
+	</integration-xml:xslt-transformer>
+	  
+</beans>

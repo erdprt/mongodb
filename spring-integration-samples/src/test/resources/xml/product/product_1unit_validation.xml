@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><Message xmlns="http://erdprt.org/ProductStructure">
+<MetaData>
+<from>applicationA</from>
+<to>applicationB</to>
+<contentType>xml</contentType>
+</MetaData>
+<Body>
+<products count="1">
+<product id="e4c47247-dd81-4669-bc61-7ae90db2869c" quantity="1212" category="soda" date="2012-12-31T18:24:10.161+01:00" price="216.2"/>
+<product id="76e5e10e-0ac1-4d8d-a338-299b8d1681d5" quantity="1869" category="soda" date="2012-12-31T18:24:10.161+01:00" price="73.6"/>
+<product id="ad7b3e8b-8a70-4ca6-a9a5-105a08fde1e2" quantity="1557" category="sofa" date="2012-12-31T18:24:10.161+01:00" price="73.6"/>
+</products>
+</Body>
+</Message>
+

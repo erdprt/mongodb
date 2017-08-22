@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/DefaultStructure">
+  <MetaData>
+    <from>fromV</from>
+    <to>toV</to>
+    <contentType>xml</contentType>
+  </MetaData>
+  <Body>
+    <persons count="1">
+      <person id="b0a8dc11-e182-48a6-9269-c52359b81d0c">
+        <civilStatus>
+          <lastName>lastName-0</lastName>
+          <firstName>firName-0</firstName>
+          <civility>M</civility>
+          <birthDate>2013-01-01T00:23:37.377+01:00</birthDate>
+        </civilStatus>
+        <address>
+          <street>street-0</street>
+          <city>Rennes</city>
+          <zipCode>75003</zipCode>
+        </address>
+        <products count="4">
+          <product id="1c096efe-e68b-4c20-8199-62339b0b8183" href="b0a8dc11-e182-48a6-9269-c52359b81d0c" quantity="1095" date="2013-01-01T00:23:37.377+01:00" price="59.8" category="soda"></product>
+          <product id="5cb19f65-57fa-4cbe-800e-a652dd1e1a56" href="b0a8dc11-e182-48a6-9269-c52359b81d0c" quantity="14" date="2013-01-01T00:23:37.377+01:00" price="94.3" category="printer"></product>
+          <product id="8c91cf46-2f2d-4fca-af21-5d6d134218fe" href="b0a8dc11-e182-48a6-9269-c52359b81d0c" quantity="1088" date="2013-01-01T00:23:37.377+01:00" price="124.2" category="soda"></product>
+          <product id="bafdfe47-e361-4d7f-9a69-26df05e7c739" href="b0a8dc11-e182-48a6-9269-c52359b81d0c" quantity="28" date="2013-01-01T00:23:37.377+01:00" price="218.5" category="sofa"></product>
+        </products>
+      </person>
+    </persons>
+  </Body>
+</Message>

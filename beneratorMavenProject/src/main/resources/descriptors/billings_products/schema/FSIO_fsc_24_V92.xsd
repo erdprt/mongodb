@@ -1,0 +1,4116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by USER USER (SOCIETE GENERALE - SGPM) -->
+<xs:schema xmlns:fsc2="http://sgcib/collecteML.V25" xmlns="http://sgcib/collecteML.V25" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sgcib/collecteML.V25" elementFormDefault="qualified">
+	<xs:element name="Fichier" type="FichierType"/>
+	<xs:element name="ConcoursCredit" type="ConcoursCreditType"/>
+	<xs:complexType name="ApporteurAffaireType">
+		<xs:attribute name="referClients">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">65 - Indicateur référentiel clients pour l'apporteur d'affaires (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="code">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">66 - Identifiant de l'apporteur (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourApport">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">67 - Pourcentage d'apport (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="description">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">303 -Autre information sur l'Apporteur d'affaire(X(50))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="AssietteNonFlatType">
+		<xs:sequence>
+			<xs:element name="TxComs" type="TxComsType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="baseCalc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">98 - Base de calcul (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CalculsReglementairesType">
+		<xs:attribute name="codeDevise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">341 - Devise d'expression des résultats réglementaires(X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="RWA">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">342 - Montant de l'encours pondéré (RWA) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="EAD">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">343 - Exposition en cas de défaut (EAD) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="EL">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">344 - Pertes attendues (EL) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="facilityRating">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">345 - Rating du concours (FR) (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CashFlowCommissionsType">
+		<xs:sequence>
+			<xs:element name="LigneCash" type="LigneCashType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="deviseCFC">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">289 - Devise de paiement des commissions (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CashFlowInteretsType">
+		<xs:sequence>
+			<xs:element name="LigneCash" type="LigneCashType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="deviseCFI">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">349 - Devise de paiement des intérêts (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClientPorteurRisqueType">
+		<xs:attribute name="referEntJuriPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">157 - Indicateur référentiel clients pour l'entité juridique porteuse de risque (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeEntJuriPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">158 - Identifiant contrepartie entité juridique porteuse de risque (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sectCtrparPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">160 - Indicateur secteur de l'entité juridique porteuse de risque (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="referCltElemPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">154 - Indicateur référentiel clients pour le client élémentaire porteur de risque (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeCltElemPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">155 - Identifiant pour le client élémentaire porteur de risque (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePaysResPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">156 - Code pays de résidence pour le client élémentaire porteur de risque (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePaysNatPR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">159 - Code pays de nationalité pour l'entité juridique porteuse de risque (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="noteBHFM">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">214 - Note de la contrepartie porteuse de risque (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateNoteBHFM">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">209 - Date de la note de la contrepartie porteuse de risque (Date))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClientType">
+		<xs:attribute name="referEntJuri">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">31 - Indicateur référentiel clients pour l'entité juridique (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeEntJuri">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">32 - Identifiant contrepartie Entité juridique (X(16))
+Entité juridique ou Client élémentaire obligatoire</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idLocEntJuri">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">33 - Identifiant local de la contrepartie (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sectCtrpar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">34 -Indicateur Secteur de l'entité juridique (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="referCltElem">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">35 -Indicateur référentiel clients pour le client élémentaire (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeCltElem">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">36 -Identifiant client élémentaire (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idLocCltElem">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">37 - Identifiant local du client élémentaire (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="nomCltElem">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">38 - Nom du client élémentaire (X(40))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePays">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">39 - Code Pays de résidence du client élémentaire (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeSegmMarche">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">165 - Code segment de marché (X(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indContrepartiePrincipale">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">212 - Indicateur contrepartie principale (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indClientIntraGroupe">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">383 -Indicateur client intra-groupe (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numOrdre" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">264 -  Numéro d'ordre client (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateLimTirPos">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">219 -  Date limite de tirage possible pour la contrepartie (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="note">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">213 -  Note de la contrepartie BHFM (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateNoteBHFM">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">265 -  date à laquelle la note de la contrepartie BHFM a été attribué (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntMaxUtilisable">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">215 -  Montant maximal utilisable par la contrepartie (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntMax">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">216 -  Devise du montant maximal utilisable par la contrepartie (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDebContrepartie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">217 -  Date de début de concours possible pour la contrepartie (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateFinContrepartie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">218 -  Date de fin de concours possible pour la contrepartie (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ConcoursCreditType">
+		<xs:sequence>
+			<xs:element name="OpeElemCredit" type="OpeElemCreditType" maxOccurs="unbounded"/>
+			<xs:element name="Garantie" type="GarantieType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Syndication" type="SyndicationType" minOccurs="0"/>
+			<xs:element name="Remuneration" type="RemunerationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="RemunInteretCalc" type="RemunInteretCalcType" minOccurs="0"/>
+			<xs:element name="ApporteurAffaire" type="ApporteurAffaireType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SupportDuRisque" type="SupportDuRisqueType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Client" type="ClientType" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="TabAmort" type="TabAmortType"/>
+				<xs:element name="Loi" type="LoiType"/>
+			</xs:choice>
+			<xs:element name="PdtDEVL" type="PdtDEVLType" maxOccurs="unbounded"/>
+			<xs:element name="ClientPorteurRisque" type="ClientPorteurRisqueType" minOccurs="0"/>
+			<xs:element name="TabDecaissement" type="TabDecaissementType" minOccurs="0"/>
+			<xs:element name="SLMetier" type="SLMetierType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="IdentBalois" type="IdentBaloisType" minOccurs="0"/>
+			<xs:element name="CashFlowCommissions" type="CashFlowCommissionsType" minOccurs="0"/>
+			<xs:element name="PortefeuilleSGCIB" type="PortefeuilleSGCIBType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Provisions" type="ProvisionsType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Tiers" type="TiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="Ext" type="ExtType"/>
+				<xs:element name="Pas" type="PasType"/>
+				<xs:element name="Tracor" type="TracorType"/>
+				<xs:element name="Metf" type="MetfType"/>
+				<xs:element name="Spe" type="SpeType"/>
+				<xs:element name="CreditBail" type="CreditBailType"/>
+				<xs:element name="Titrisation" type="TitrisationType"/>
+			</xs:choice>
+			<xs:element name="ImpayeCommission" type="ImpayeCommissionType" minOccurs="0"/>
+			<xs:element name="Renegocie" type="RenegocieType" minOccurs="0"/>
+			<xs:element name="Debiteur" type="DebiteurType" minOccurs="0" maxOccurs="unbounded"/>
+			<!--xs:element ref="CashFlowInterets" minOccurs="0"/-->
+		</xs:sequence>
+		<xs:attribute name="numero" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">10 - Identifiant concours (X(40))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">16 - Date de début du concours (date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateFin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">17 - Date de fin du concours (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDerPaie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">21 - Date du dernier paiement (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="entiteOrig">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">26 - Code entité originatrice (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="10"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeEntEmet" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">27 - Code entité émettrice (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9999999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeEntBook">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">28 - Code entité de Booking (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9999999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateLimTir">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">20 - Date limite de tirage (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="autorisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">24 - Identifiant de l'autorisation (X(23))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="23"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indAutorisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">295 - Indicateur Autorisation/Plafond (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="senioriteCreance">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">47 - Séniorité de la créance (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="degreSubor">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">48 - Degré de subordination (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="projetOuMontage">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">11 - Identifiant projet ou montage (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="confCredit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">15 - Indicateur confirmation du crédit (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntExpoInit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">22 - Montant de l'exposition initiale (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devExpoInit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">23 - Devise du montant du concours (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="taciteRecond">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">49 - Indicateur tacite reconduction (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="transferabilite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">50 - Degré de transferabilité (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="clausesConf">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">51 - Indicateur clause de confidentialité (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indTirNConnusAv">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">12 - Indicateur mode revolving (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="txTiraPrev">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">13 - Taux de tirage prévu (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="convertibilite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">14 - Indicateur possibilité de convertibilité (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indMntAffect">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">22' - Indicateur montant affecté au concours (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indTypeConc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">9 - Indicateur type de concours (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="appliGeneAutorisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">24' - Code application génératrice de l'autorisation (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="champLibre">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">297 - Champ libre/zone de secours (X(20))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="libelleConcours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">277 - Libellé du concours (X(50))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateContractMaturiteMax">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">207 - Date contractuelle de maturité maximale du 
+term loan en cas de convertibilité (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateMaturiteLoan">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">208 - Date de maturité choisie par le client (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">238 - Montant global des commissions courues non échues (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">237 - Devise des commissions courues non échues (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeReportCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">239 - Code reporting comptable des commissions 
+courues non échues (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="durPreaSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">18 - Durée préavis SG (N(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeAEConcoursOrig">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">231 - Code application emettrice du concours d’origine (X(10))	</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idConcOrigCDL">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">232 - Identifiant permettant de rapprocher le conccours passé 
+en CDL du concours d’origine (X(40))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="datePremProvSpec">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">230 - Date des premières provisions spécifiques (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="motifPassageCDL">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">320 - Motif de passage en CDL (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDecheanceTerme">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">394 - Date de déchéance du terme (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="objetConcours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">370 - Objet du concours (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indDevLocIndexDevFort">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">417 - Contrat monnaie locale indexé sur une devise forte (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devLocComptaCtr">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">418 - Monnaie locale de comptabilisation du contrat (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indTrmDrwPer">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">434 - Indicateur pr袩sant si le term loan est d襩ni avec ou sans p豩ode de tirage (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indBorBas">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntCllHai" type="xs:decimal"/>
+		<xs:attribute name="cddevCllHai" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ConcoursOrigineType">
+		<xs:attribute name="codeAEOrigine" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">412 - Code application émettrice d'un concours à l'originie du concours renegocie(X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numeroOrigine" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">413- Identifiant du concours  à l'origine du concours renegocie(X(40))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ContractComptesType">
+		<xs:attribute name="indContract">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">146 - Indicateur contraction de comptes (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntContractSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">148 - Montant contracté(niveau SG) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indPosSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">149 - Indicateur position contraction SG  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntContractGA">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">150 - Montant contracté niveau SA (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indPosGA">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">151 - Indicateur position contraction SA (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntContractGU">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">152 - Montant contracté niveau SU (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indPosGU">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">153 - Indicateur position contraction GU (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CouvertFixeType">
+		<xs:attribute name="mntFixe">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">74 - Montant de la garantie/Collatéral (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntFixe">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">75 - Devise de la garantie/Collatéral (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indRepartMnt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">74' - Indicateur de répartition du montant de la garantie/Collatéral (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CouvertProporType">
+		<xs:attribute name="pourEncGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">76 - Pourcentage de l'encours garanti  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CreditBailType">
+		<xs:attribute name="indRisqueVR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">410 - Indicateur risque de valeur résiduelle (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntvaleurResiduelle">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">273 - Montant valeur résiduelle (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devValeurResiduelle">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">292 - Devise montant valeur résiduelle (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="valeurResiduelleAct">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">336 - Valeur résiduelle actualisée (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sommeLoyersActualises">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">337 - Somme des flux de loyer actualisés (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="tauxActualisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">338 - Taux d'actualisation (N(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="lgdLoyers">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">339 - LGD loyers (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="lgdValeurResiduelle">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">340 - LGD VR (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DebiteurType">
+		<xs:attribute name="debCodeEntitJur">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">419  - Identifiant Débiteur (Entité Juridique) (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="debRefEntitJur">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">420 - Indicateur « Référentiel CLIENTS » / Débiteur (Entité Juridique) (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idLocDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">421 -  Identifiant local Débiteur  (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtEngDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">422 - Montant engagement débiteur (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devEngDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">423 - Devise de l'engagement débiteur (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="paysDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">424  -Pays du débiteur   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtAutorisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">425 - Montant d'autorisation  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devAutorisation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">426 - Devise de l'autorisation (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtReassure">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">427 - Montant réassuré	 (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devReassure">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">428  -Devise du montant réassurér   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtEncCrNonReassure">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">435 - Montant d'encours de cr蠮ces non r蠳sur矤u d衩teur	 (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devEncCrNonReassure">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">436  -Devise du montant d'encours de cr蠮ces non r蠳sur矤u d衩teur   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtEncCrDouteux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">437 - Montant d'encours de cr蠮ces "douteux" du d衩teur	 (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devEncCrDouteux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">438  -Devise du montant d'encours de cr蠮ces "douteux" du d衩teur   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtEncCrLitigieux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">439 - Montant d'encours de cr蠮ces "litigieux" du d衩teur	 (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devEncCrLitigieux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">440  -Devise du montant d'encours de cr蠮ces "litigieux" du d衩teur   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mtEncTotCrNonGaranti">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">441 - Montant de l'encours total de cr蠮ces non garanti du d衩teur	 (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devEncTotCrNonGaranti">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">442  -Devise du montant de l'encours total de cr蠮ces non garanti du d衩teur   (x(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateEchLimCredit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">443 - Date d'袨蠮ce de la limite de cr裩t (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DonneesMRIType">
+		<xs:attribute name="indRollover">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">143 - Indicateur Rollover  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indOpeElem">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">144 - Numéro de référence  (X(18))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="18"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateConcl">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">145 - Date de conclusion  (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DossierCreditType">
+		<xs:sequence>
+			<xs:element name="ConcoursCredit" type="ConcoursCreditType" maxOccurs="unbounded"/>
+			<xs:element name="Remuneration" type="RemunerationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Garantie" type="GarantieType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ImpayeCommission" type="ImpayeCommissionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="numero">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">5 - Identifiant du dossier (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntAut">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">7 - Montant du dossier (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntAut">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">8 - Devise de référence du dossier (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="libelle">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">6 - Libellé du dossier (X(50))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">204 - Montant cumulé des commissions courues non échues du dossier (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeDossier">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">203 - Type de dossier (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDebut">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">201 - Date de début du dossier (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateFin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">202 - Date de fin du dossier (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">205 - Devise des commissions courues non échues (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeReporComptaCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">206 - Numéro de reporting comptable (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ExtType">
+		<xs:attribute name="dateDepRembours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">210 - Date contractuelle du premier remboursement (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FichierType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="DossierCredit" type="DossierCreditType"/>
+			<xs:element name="ConcoursCredit" type="ConcoursCreditType"/>
+		</xs:choice>
+		<xs:attribute name="dateDecl" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">2 - Date de déclaration du fichier FSC (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="periode" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">1 - Indicateur périodicité de déclaration (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="1"/>
+					<xs:pattern value="(1|2)"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeAE" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">4 - Code application émettrice (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateCrea" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">3 - Date de création du fichier fsc (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GarantieType">
+		<xs:choice minOccurs="0">
+			<xs:element name="CouvertFixe" type="CouvertFixeType"/>
+			<xs:element name="CouvertPropor" type="CouvertProporType"/>
+		</xs:choice>
+		<xs:attribute name="code">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">68 - Code garantie/collatéral (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeAppliGesGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">278 - Code application de gestion de la garntie/collatéral (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idGarantie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">69 - Identifiant garantie/collatéral (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="statut">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">70 - Indicateur statut garantie/collatéral (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateEnreg">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">71 - Date de début de validité de la garantie/collatéral (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateFinGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">72 - Date limite de validité de la garantie/collatéral (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourRisqCom">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">79 - Pourcentage du risque commercial couvert (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourRisqPol">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">80 - Pourcentage du risque politique couvert (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourCouvExige">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">81 - Pourcentage de couverture exigé si clause d'arrosage (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="psr">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">357 - Part SG parmi les autres banques de même rang (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="refBanqueDepositaire">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">358 - Indicateur référentiel d'identification banque dépositaire (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idBanqueDepositaire">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">359 - Identifiant de la banque dépositaire (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="modeRepartCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">373 - Mode de répartition du collatéral  (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="hedgingRate">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">374 - Pourcentage du montant couvert contre 
+une variation de prix (hedging rate) (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="flagMonitored">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">362 -  Indicateur de suivi régulier du collatéral (flag Monitored) (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateMaterialisationActif">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">363 - Date de matérialisation de l'actif apporté en garantie(Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="priceVolatility">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">364 - Qualification de la volatilité du prix du collatéral (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dependActivite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">82 - Indicateur dépend de l'activité (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="paysLoc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">89 - Code pays de localisation du collatéral (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="deplPaysRisq">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">90 - Indicateur dépalcement pays à risques (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="assurNonReposs">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">91 - Indicateur assurance de non repossession (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntInscPrimSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">77 - Montant d'inscription primant la SG (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntInscPrimSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">78 - Devise du montant d'inscription primant la SG (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntDernEval">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">83 - Valeur de la dernière évaluation (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntDernEval">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">84 - Devise de la dernière évaluation (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDernEval">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">85 - Date de la dernière évaluation (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="referClientsGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">86 - Indicateur référentiel clients pour le garant (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeClientGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">87 - Identifiant du garant (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="secteurGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">88 - Indicateur secteur du garant (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="note">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">245 - Note du garant BHFM (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateNoteBHFM">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">287 - Date de la notation BHFM du garant (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeEntite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">244 - Identifiant de l'élément de structure de la 
+SG qui a émis la garantie (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9999999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="assietteCouvGarantieRecue">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">242 - Assiette de couverture de la garantie reçue (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="valeurNeufCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">252 - Valeur à neuf du collatéral  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="deviseNeufCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">253 - Devise de la valeur à neuf du collatéral  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="valTotaleCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">249 - Valeur totale à l'octroi de l'actif apporté par le collatéral  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devValTotaleCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">294 - Devise de la valeur totale à l'octroi de l'actif 
+apporté par le collatéral (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indLiquidite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">250 - Caractère liquide ou revendable de l'actif à l'octroi (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="methodeValCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">254 - Méthode de valorisation du collatéral en cours de vie (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indEligibGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">240 - Eligibilité (Bale II) de la garantie ou du 
+collatéral en méthode standard (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indEligibStdCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">246 - Eligibilité (Bale II) de la garantie ou du 
+collatéral en méthode standard (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indGarCond">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">241 - Indicateur garantie conditionnelle (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indModeExecGar">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">243 - Indicateur mode d'exécution de la garantie (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indEligibIRBFCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">247 - Eligibilité (Bale II)  en méthode IRBF du collatéral  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indEligibIRBACollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">248 - Eligibilité (Bale II)  en méthode IRBA du collatéral  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeActif">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">392 - Sous-type de sûreté (X(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="holdingPeriod">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">405 - Durée de la période de liquidation (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="assetDiversification">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">393 - Diversification des actifs apportés en collatéral (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePaysJuriCollat">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">404 - Pays de juridiction du collatéral (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="notationRegSurete">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">415 - Notation Reglementaire de la surete (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:minInclusive value="00.0"/>
+					<xs:maxInclusive value="10.0"/>
+					<xs:totalDigits value="3"/>
+					<xs:fractionDigits value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IdentBaloisType">
+		<xs:attribute name="methBaloise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">224 - Méthode bâloise  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idPortefeuilleBalois">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">225 - Identifiant portefeuille bâlois  (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeMoteurDeNotation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">226 - Type moteur de notation  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeAppliGenNotationOrigin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">227 - Code application génératrice de la notation à l'origine  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idEngagementSysNotationOrigin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">228 - Identifiant dans le système de la notation à l'origine  (X(24))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="24"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indRemonteEnPool">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">229 - Indicateur également remontée en pool  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="categoriePrud">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">382 - Catégorie prudentielle (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="notationRegConcours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">414 - Notation Reglementaire du concours (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:minInclusive value="00.0"/>
+					<xs:maxInclusive value="10.0"/>
+					<xs:totalDigits value="3"/>
+					<xs:fractionDigits value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="modNotLGD">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">430 - Modèle de notation de LGD  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="versModNotLGD">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">431- Version de modèle de notation de LGD(X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="modNotCCF">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">432 - Modèle de notation de CCF  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="versModNotCCF">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">433- Version de modèle de notation de CCF(X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ImpayeCommissionType">
+		<xs:attribute name="montant">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">321/391/380 - Montant des commissions impayées
+(concours,operation,dossier) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeDevise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">322/354/381 -  Devise des commissions impayées (opération)
+(concours,operation,dossier) (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReport">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">385/389/398 -  Numéro de reporting comptable des 
+commissions impayées (concours/opération/dossier) (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ImpayeInteretType">
+		<xs:attribute name="montant">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">355 - Montant des intérêts impayés (operation)  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeDevise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">356 -  Devise des intérêts impayés (opération)(X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReport">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">386 -  Numéro de reporting comptable des 
+intérêts impayés (opération) (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LigneCashType">
+		<xs:attribute name="montantCash">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">257/260 /352- Montant des intérêts/commissions  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="signeInterets">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">258/351 - Signe du montant des intérêts  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateEchCash">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">256/259/350 - Echéance de paiement des intérêts/commissions  (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LigneEchType">
+		<xs:attribute name="montant">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">63/235/271 - Montant de l'échéance (amortissement, décaissement, 
+remboursement) (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="signeMnt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">64/236/272 - Signe du montant de l'échéance (amortissement,
+ décaissement, remboursement) (x(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">62/234/270 - Date de l'échéance (amortissement, décaissement,
+ remboursement) (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LoiEchConstType">
+		<xs:attribute name="rythme">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">57 - Rythme d'amortissement (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="moisFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">58 - Franchise de l'amortissement (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">59 - Type de franchise  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="const">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">60' - Taux client loi échéance constante  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LoiEnCapPOuDType">
+		<xs:attribute name="rythme">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">57 - Rythme d'amortissement (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="moisFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">58 - Franchise de l'amortissement (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">59 - Type de franchise  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="taux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">60 - Taux de progressivité/dégressivité (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LoiLineaireType">
+		<xs:attribute name="rythme">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">57 - Rythme d'amortissement (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="moisFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">58 - Franchise de l'amortissement (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeFranc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">59 - Type de franchise  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LoiType">
+		<xs:choice minOccurs="0">
+			<xs:element name="LoiLineaire" type="LoiLineaireType"/>
+			<xs:element name="LoiEnCapPOuD" type="LoiEnCapPOuDType"/>
+			<xs:element name="LoiEchConst" type="LoiEchConstType"/>
+		</xs:choice>
+		<xs:attribute name="typeLoi">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">56 - Type d'amortissement de la loi (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="MetfType">
+		<xs:attribute name="dateDepRembours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">210 - Date contractuelle du premier remboursement (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="MntComsType">
+		<xs:attribute name="mntComs">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">115 - Montant de la commission ( N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntComs">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">116 - Devise de la commission (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="debPlagInd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">119 - Valeur indice début si utilisation d'une matrice d'indexation (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="MrgComrcType">
+		<xs:attribute name="txOuCfMrgComrc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">113 - Taux de marge commerciale  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typMrgComrc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">114 - Indicateur Type de marge commerciale  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="debPlagInd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">119 -Valeur indice début si utilisation d'une matrice d'indexation  (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="OpeElemCreditType">
+		<xs:sequence>
+			<xs:element name="DonneesMRI" type="DonneesMRIType" minOccurs="0"/>
+			<xs:element name="ContractComptes" type="ContractComptesType" minOccurs="0"/>
+			<xs:element name="SoldMoyMens" type="SoldMoyMensType" minOccurs="0"/>
+			<xs:element name="TabRemboursement" type="TabRemboursementType" minOccurs="0"/>
+			<xs:element name="CashFlowInterets" type="CashFlowInteretsType" minOccurs="0"/>
+			<xs:element name="ImpayeCommission" type="ImpayeCommissionType" minOccurs="0"/>
+			<xs:element name="ImpayeInteret" type="ImpayeInteretType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="dateDeb" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">135 - Date de début de l'opération élémentaire  (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateFin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">136 - Date de fin de l'opération élémentaire  (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="natOpe">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">140 - Indicateur nature de l'opération élémentaire  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeCompta" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">141 - Indicateur type de comptabilisation  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="1"/>
+					<xs:pattern value="(H|B)"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="etatOpe">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">142 - Indicateur état de l'opération  (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReportCpt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">139 - Numéro de reporting comptable  (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntExpoCour">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">137 - Montant de l'exposition courante  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntExpoCour" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">138 - Devise du montant de l'exposition courante  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idOperation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">261 - Identifiant de l'opération (X(40))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numOrdreClient" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">262 - Numéro d'ordre de la contrepartie de l'opération (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numOrdreProduit" use="optional">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">263 - Numéro d’ordre du produit de l'opération (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="maturite">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">346 - Maturité réglementaire de l'opération (N(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">347 - Montant cumulé des commissions courues non échues (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">348 - Devise du montant cumulé des commissions 
+courues non échues  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReportCCNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">406 -  Numéro de reporting comptable des 
+commissions courues non échues (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="natCredit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">46 - Nature du crédit (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devRefinancement">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">266 - Devise de refinancement (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devIntCourusNonEchus">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">290 - Devise des intérêts courus non échus (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntIntCourusNonEchus">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">291 - Montant global des intérêts courus non échus (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sgnIntCourusNonEchus">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">267  - Signe des intérêts courus non échus (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeReportCompICNE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">268  - Code reporting comptable des intérêts courus non échus (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeDEVLOP" use="optional">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">296  - Numéro de produit DEVL permettant de reconnaître
+ la part non utilisée d'un engagement confirmé  (X(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="referentielBeneficiaire">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">300 -  Indicateur référentiel d'identification du 
+bénéficiaire de la garantie (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idBeneficiaire">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">301 -  Identifiant du bénéficiaire de la garantie émise (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateClassementDouteux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">395 - Date de classement en douteux (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateClassementDCompromis">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">396 - Date de classement en douteux compromis (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="datePremImpaye">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">416 - Date de premier impayé (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PasType">
+		<xs:attribute name="dateDepRembours">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">210 - Date contractuelle du premier remboursement (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PdtDEVLType">
+		<xs:choice minOccurs="0">
+			<xs:element name="PdtLocalNonDIST" type="PdtLocalNonDISTType"/>
+			<xs:element name="PdtDIST" type="PdtDISTType"/>
+			<xs:element name="PdtINFI" type="PdtINFIType"/>
+		</xs:choice>
+		<xs:attribute name="codeDEVL" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">42  - Numéro de produit DEVL  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numOrdre" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">293  - Numéro d'ordre permettant d'attribuer une référence 
+à chaque lément de la liste des produits concours  (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indDegreRisque">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">223  - Indicateur du produit le plus risqué (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ccf">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">302  - CCF  (N(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntMaxTirProduit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">221  - Montant maximum de tirage sur le produit (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devMntMax">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">222  - Devise du montant maximum de tirage sur le produit (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateLimTirProduit">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">220  - Date limite de tirage sur le produit (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PdtDISTType">
+		<xs:attribute name="codeGDC">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">44  - Code produit DIST (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PdtINFIType">
+		<xs:attribute name="codeGDC">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">44  - Code produit INFI (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PdtLocalNonDISTType">
+		<xs:attribute name="code">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">45  - Code produit local non DIST (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PortefeuilleSGCIBType">
+		<xs:attribute name="codePort">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">279 -Codeportefeuille BDR  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9999999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourcentPort">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">280 - Pourcentage du montant du concours  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProvisionsType">
+		<xs:attribute name="familleEngagement">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">323 - Famille de l'engagement provisionné(X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="assiette">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">324 - Assiette des provisions(X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="montant">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">325 -  Montant de la provision (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeDevise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">326 - Devise du montant de la provision (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numeroReportComptable">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">327 - Numéro de reporting comptable de la provision (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numOrdreClient">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">384 - Identification de la contrepartie (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RemunCommissionType">
+		<xs:choice minOccurs="0">
+			<xs:element name="AssietteNonFlat" type="AssietteNonFlatType"/>
+			<xs:element name="MntComs" type="MntComsType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attribute name="commCourNEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">107  - Commissions courues non échues (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="datePrepaie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">104  - Date début d'autorisation de pré-paiement (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devCommNEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">107'  - Devise des commissions courues non échues (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RemunerationType">
+		<xs:choice minOccurs="0">
+			<xs:element name="RemunCommission" type="RemunCommissionType"/>
+			<xs:element name="RemunInteret" type="RemunInteretType"/>
+		</xs:choice>
+		<xs:attribute name="code">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">92  - Code rémunération (X(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="momPaie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">95  - Moment de paiement de la rémunération (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="perioNbre">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">96  - Périodicité de paiement de la rémunération (N(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="perioType">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">97  - Unité de périodicité de paiement de la rémunération (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeMatIndex">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">118  - Indice d'indexation (X(20))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeAssi">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">94  - Assiette de la rémunération (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devAutTir">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">99'  - Devise autorisée de tirage (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RemunInteretCalcType">
+		<xs:attribute name="code">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">92 - Code rémunération (X(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devIntCalc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">120 - Devise des intérêts calculés (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntIntCalcNet">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">121 - Montant calculé des intérêts nets du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="signMntIntCalcNet">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">122 - Signe du montant calculé des intérêts nets du mois (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntIntCalcdeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">123 - Montant calculé des intérêts débiteurs du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntIntCalcCre">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">124 - Montant calculé des intérêts créditeurs du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="signIntCourNEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">105' -Signe du montant des intérêts courus non échus (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="intCourNEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">105 - Intérêts courus non échus (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReportCompt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">106 - Numéro de reporting comptable des intérêts courus non échus (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RemunInteretType">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="TxCltVar" type="TxCltVarType"/>
+				<xs:element name="TxClient" type="TxClientType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:choice minOccurs="0">
+				<xs:element name="TxRefinFixe" type="TxRefinFixeType"/>
+				<xs:element name="TxRefinVar" type="TxRefinVarType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="intCourNEch">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">105  - Intérêts courus non échus (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="numReportCompt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">106  - Numéro de reporting comptables (X(22))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="22"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="baseCalc">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">98  - Base de calcul  (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indCap">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">100  - Indicateur capitalisation du taux client  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="perioCap">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">101 - Périodicité de capitalisation (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indTauxClt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">99 - Index taux client (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indTauxRefin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">108 - Index du taux de refinancement (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RenegocieType">
+		<xs:sequence>
+			<xs:element name="ConcoursOrigine" type="ConcoursOrigineType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="dateRenegocie" use="required">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">411 - Date de renegociation du concours (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RoleContrepartieType">
+		<xs:attribute name="numeroContrepartie">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">335 - Identification de la contrepartie(N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeContrepartieTRACOR">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">276 - Type de contrepartie TRACOR (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SLMetierType">
+		<xs:attribute name="codeSLMetOrig">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">25 - Code sous ligne métier (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeSLMetDevl">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">25a - Code sous ligne métier DEVL (X(6))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="6"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourSLMetier">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">211 - Pourcentage affecté à la sous ligne métier (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeSLMetOrigN">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">409 - Code Sous-Ligne Métier référentiel composite Risque (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indRefCodeSLMetOrigN">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">408 - Indicateur référentiel source de la sous-ligne métier dans le référentiel composite Risque (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SoldMoyMensType">
+		<xs:attribute name="soldMoyNet">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">161 - Solde moyen net du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="signSoldMoyNet">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">162 - Signe du solde moyen net du mois (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="soldMoyDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">163 - Solde moyen débiteur du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="soldMoyCre">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">164 - Solde moyen créditeur du mois (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SpeType">
+		<xs:attribute name="perenniteCapProd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">328 - Qualité des recettes générées par l'objet du financement (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="qualiteProtectionJuridique">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">329 - Qualité de la protection juridique de la SG (N(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="flagCaptationFlux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">330 - Indicateur de captation des flux off-shore (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeMatiereFinancee">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">331 - Type de matière première financée (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePaysExportation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">332 - Pays d'exportation de la matière première financée (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="irrevocableDomiciliation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">407 - Indicateur de domiciliation irrévocable des paiements 
+off-shore (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SupportDuRisqueType">
+		<xs:attribute name="codeEntSupRisq">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">29 - Code entité support du risque  (X(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9999999999"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourParticip">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">30 - Pourcentage de participation au risque  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SyndicationType">
+		<xs:attribute name="mntExpoTotOrig">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">127 - Exposition totale à l'origine  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="devSynd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">128 - Devise de la syndication  (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="roleSG">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">126 - Rôle de la SG  (X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeAgent">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">130' - Identifiant de l'agent  (X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="roleAgent">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">129 - Indicateur agent  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dateDeb">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">131 - Date de début de la syndication  (Date)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="((19|20)[0-9][0-9])(((0[13578])(0[1-9]|1[0-9]|2[0-9]|3[01]))|((0[469])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((0[2])(0[1-9]|1[0-9]|2[0-9]))|((1[1])(0[1-9]|1[0-9]|2[0-9]|3[0]))|((1[02])(0[1-9]|1[0-9]|2[0-9]|3[01])))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="mntObjFin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">132 - Part finale de la SG  (N(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:totalDigits value="15"/>
+					<xs:fractionDigits value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="probColle">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">133 - Probabilité de colle  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="volatExp">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">134 - Volatilité de l'exposition  (N(5))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="5"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indRefAgent">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">130 - Indicateur référentiel clients pour l'agent syndication  (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TabAmortType">
+		<xs:sequence>
+			<xs:element name="LigneEch" type="LigneEchType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="devise">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">61 - Devise d'amortissement (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TabDecaissementType">
+		<xs:sequence>
+			<xs:element name="LigneEch" type="LigneEchType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="deviseDE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">233 - Devise du montant de décaissement prévisionnel (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TabRemboursementType">
+		<xs:sequence>
+			<xs:element name="LigneEch" type="LigneEchType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="deviseRE">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">269 - Devise du montant du flux (X(3))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TiersType">
+		<xs:attribute name="indicateurRef">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">304 - Indicateur référentiel d'identification du tiers (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codeTiers">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">305 - Identifiant du tiers(X(16))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="16"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="role">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">306 - Rôle du tiers(X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pourServicer">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">397 - Pourcentage de perte estimé porté par 
+le Servicer (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TitrisationType">
+		<xs:sequence>
+			<xs:element name="CalculsReglementaires" type="CalculsReglementairesType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TracorType">
+		<xs:sequence>
+			<xs:element name="RoleContrepartie" type="RoleContrepartieType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="indSilencieux">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">274 - Caractère silencieux du concours (X(1))	</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typeMatiereFinancee">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">331 - Type de matière première financée (N(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="99"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="codePaysImportation">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">334 - Pays d'importation de la matière première financée(X(2))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TxClientType">
+		<xs:attribute name="txClt">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">112 - Taux client fixe (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="debPlagInd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">119 - Valeur indice début si utilisation d'une matrice d'indexation  (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TxCltVarType">
+		<xs:sequence>
+			<xs:element name="MrgComrc" type="MrgComrcType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="txPlan">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">102 - Taux plancher (floor)  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="txPlaf">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">103 - Taux plafond (cap)  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TxComsType">
+		<xs:attribute name="txComs">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">117 - Valeur du taux de la commission  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="debPlagInd">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">119 - Valeur indice début si utilisation d'une matrice d'indexation  (X(15))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="0"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TxRefinFixeType">
+		<xs:attribute name="txRefin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">109 - Taux de refinancement fixe  (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TxRefinVarType">
+		<xs:attribute name="txOuCfMrgRefin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">110 - Marge de refinancement (N(10))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="typMrgRefin">
+			<xs:annotation>
+				<xs:documentation source="numnom" xml:lang="fr">111 - Type de marge de refinancement (X(1))</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

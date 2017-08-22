@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:integration-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:integration-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:integration-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/integration/xml
+						http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/integration
+						http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+						http://www.springframework.org/schema/integration/jms
+						http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+    					http://www.springframework.org/schema/integration/jmx
+    					http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
+						http://www.springframework.org/schema/integration/file
+						http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+						http://www.springframework.org/schema/integration/jdbc
+						http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:property-placeholder
+		location="classpath:spring-integration-config.properties" />
+
+	<!-- CHAIN FOR PRODUCT -->
+
+	<integration:channel id="splitPersonChannel">
+		<integration:queue message-store="mongoDbMessageStore"/>	
+	</integration:channel>
+	
+  	<integration:outbound-channel-adapter channel="splitPersonChannel" ref="splitPersonHandler" method="handle">
+  	</integration:outbound-channel-adapter>
+
+	<bean id="splitPersonHandler" class="fr.personal.erdprt.integration.handlers.SplitterHandler" >
+		<property name="fileType" value="person"/>
+		<property name="bufferSize" value="${buffer.size.default}"/>
+		<property name="splitter" ref="splitterPerson"/>
+		<property name="messageChannel" ref="personFranceFilterChannel"/>
+	</bean>	
+	
+	<!-- filter -->
+	<integration:channel id="personFranceFilterChannel">
+		<integration:queue message-store="mongoDbMessageStore"/>	
+	</integration:channel>
+
+	<integration-xml:xpath-filter id="personFranceFilter" 
+									input-channel="personFranceFilterChannel" 
+									output-channel="personTransformChannel" 
+									discard-channel="personFilterDiscardChannel"
+									match-type="case-insensitive">
+	    <integration-xml:xpath-expression expression="/ns1:Message/ns1:Body/ns1:persons/ns1:person[@nationality='france']">
+	        <map>
+	            <entry key="ns1" value="http://erdprt.org/PersonStructure"/>
+	        </map>
+	    </integration-xml:xpath-expression>
+	</integration-xml:xpath-filter>	
+	
+	<!--
+	<integration-xml:xpath-filter id="personFranceFilter"  
+									input-channel="personFranceFilterChannel" 
+									output-channel="personTransformChannel" 
+									discard-channel="personFilterDiscardChannel">
+		<integration-xml:xpath-expression expression="/ns1:Message/ns1:Body/ns1:persons/ns1:person[@nationality='france']" ns-prefix="ns1" ns-uri="http://erdprt.org/PersonStructure" />
+	</integration-xml:xpath-filter>
+
+	<integration-xml:xpath-expression id="personFranceFilterExpression" 
+				expression='/ns1:Message/ns1:Body/ns1:persons/ns1:person/@nationality'
+				ns-uri="http://erdprt.org/PersonStructure" ns-prefix="ns1">
+	</integration-xml:xpath-expression>
+	  -->
+
+	<!--
+	<integration-xml:xpath-filter id="personFranceFilter"  
+									input-channel="personFranceFilterChannel" 
+									output-channel="personTransformChannel" 
+									discard-channel="personFilterDiscardChannel" 
+									xpath-expression-ref="personFranceFilterExpression"
+									match-type="case-insensitive"
+									match-value="france">
+	</integration-xml:xpath-filter>
+
+	<integration-xml:xpath-expression id="personFranceFilterExpression" 
+				expression='/ns1:Message/ns1:Body/ns1:persons/ns1:person/@nationality'
+				ns-uri="http://erdprt.org/PersonStructure" ns-prefix="ns1">
+	</integration-xml:xpath-expression>
+	  -->
+
+	<!-- transforming -->
+	<integration:channel id="personTransformChannel">
+		<integration:queue message-store="mongoDbMessageStore"/>
+	</integration:channel>	
+	
+	<integration-xml:xslt-transformer id="personTransformToCsv" 
+										input-channel="personTransformChannel" 
+										output-channel="outputChannel" 
+										xsl-resource="classpath:/xsl/personToCsv.xsl">
+	</integration-xml:xslt-transformer>
+
+	<!-- discard channel for person files -->
+	<integration:channel id="personFilterDiscardChannel">
+		<integration:queue message-store="mongoDbMessageStore"/>	
+	</integration:channel>
+
+	<file:outbound-channel-adapter id="discardPersonOutput" 
+									channel="personFilterDiscardChannel" 
+									directory="${folders.discard.person}" 
+									filename-generator="defaultFileGenerator"/>
+
+	<!-- SPLITTER  -->
+	
+	<bean id="splitterPerson" class="fr.personal.erdprt.integration.splitters.DefaultSplitterImpl" >
+    	<property name="elementName" value="person"/>
+    	<property name="splitReader" ref="splitStringReader"/>
+	</bean>	
+	  
+</beans>

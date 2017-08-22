@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup	xmlns="http://databene.org/benerator/0.6.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://databene.org/benerator/0.6.0 http://databene.org/benerator-0.6.0.xsd">
+
+	<include uri="src/main/resources/descriptors/sample1/configuration.properties" />
+
+    <bean id="datetimegenerator" class="org.databene.benerator.primitive.datetime.DateTimeGenerator"> 
+    	<property name="minDate" value="2007-06-21"/>
+    	<property name="maxDate" value="2007-09-21"/>
+    	<property name="datePrecision" value="1970-01-02 09:00:00"/>
+    	<property name="dateDistribution" value="{new org.databene.benerator.distribution.sequence.RandomSequence()}"/>
+    	<property name="minTime" value="09:00:00"/>
+    	<property name="maxTime" value="17:00:00"/>
+    	<property name="timePrecision" value="00:00:01"/>
+    	<property name="timeDistribution" value="{new org.databene.benerator.distribution.sequence.RandomSequence()}"/>
+	</bean>
+
+
+	<bean id="addresscsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/address.csv}"/>
+            <property name="columns" value="ADR_ID,ADR_EMAIL,ADR_FIRSTNAME,ADR_LASTNAME,
+            									ADR_STREETNAME,ADR_STREETNUMBER,ADR_ZIPCODE,
+            									ADR_CITY,ADR_COUNTRY,ADR_CREATED"/>
+            									
+            <property name="separator" value=","/>		
+	</bean>
+	
+	    <generate name="address" count="{address_count}" consumer="addresscsv">
+	    
+	        <variable  name="addresses" generator="org.databene.domain.address.AddressGenerator"/>
+	        <variable  name="persons" generator="org.databene.domain.person.PersonGenerator"/>	        
+	        
+	        <attribute name="ADR_ID" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+			<attribute name="ADR_EMAIL" script="persons.givenName" />	        
+			<attribute name="ADR_FIRSTNAME" script="persons.givenName" />
+			<attribute name="ADR_LASTNAME" script="persons.familyName" />
+			<attribute name="ADR_STREETNAME" script="addresses.street" />
+			<attribute name="ADR_STREETNUMBER"  script="addresses.houseNumber" />
+			<attribute name="ADR_ZIPCODE"  script="addresses.zipCode" />
+			<attribute name="ADR_CITY"  script="addresses.city" />
+			<attribute name="ADR_COUNTRY"  script="addresses.country" />
+			<attribute name="ADR_CREATED" type="date" source="datetimegenerator"/>
+		</generate>
+
+
+	<bean id="grettingcsv" class="org.databene.platform.csv.CSVEntityExporter">
+            <property name="uri" value="{ftl:${output_dir}/greetings.csv}"/>
+            <property name="columns" value="salutation,name"/>
+            <property name="separator" value=";"/>		
+	</bean>
+
+    <generate type="greeting" count="10" consumer="grettingcsv">
+    
+    	<variable  name="addresses" generator="org.databene.domain.address.AddressGenerator"/>
+    </generate>
+    
+</setup>

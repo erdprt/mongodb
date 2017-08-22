@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://erdprt.org/ProductStructure" xmlns:tns="http://erdprt.org/ProductStructure" elementFormDefault="qualified">
+
+    <element name="Message" type="tns:MessageType"></element>
+
+    <complexType name="MessageType">
+    	<sequence>
+    		<element name="MetaData" type="tns:MetaDataType" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Body" type="tns:BodyType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="MetaDataType">
+    	<sequence>
+    		<element name="from" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="to" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="contentType" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="BodyType">
+    	<sequence>
+    		<element name="products" type="tns:ProductsType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    
+    <complexType name="ProductsType">
+    	<sequence>
+    		<element name="product" type="tns:ProductType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="count" type="long"></attribute>
+    </complexType>
+    
+    <complexType name="ProductType">
+    	<attribute name="id" type="string"></attribute>
+    	<attribute name="quantity" type="int"></attribute>
+    	<attribute name="date" type="dateTime"></attribute>
+    	<attribute name="price" type="float"></attribute>
+    	<attribute name="category" type="string"></attribute>
+    </complexType>
+</schema>

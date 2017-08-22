@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Message xmlns="http://erdprt.org/ProductStructure">
+  <MetaData>
+    <from>fromA</from>
+    <to>toB</to>
+    <contentType>xml</contentType>
+  </MetaData>
+  <Body>
+    <products count="10">
+      <product id="49247b5f-35ef-49d0-9b06-90a9a8ac5667" quantity="679" date="Sat Dec 29 21:33:18 CET 2012" price="115.0" category="ligth"></product>
+      <product id="dd61b378-8d98-4563-93b0-83cc10290aef" quantity="73" date="Sat Dec 29 21:33:18 CET 2012" price="110.4" category="computer"></product>
+      <product id="1eee7dc7-0201-4867-91de-760114873180" quantity="62" date="Sat Dec 29 21:33:18 CET 2012" price="87.4" category="ligth"></product>
+      <product id="e26ebd44-b469-4917-9969-ef5a88999e9a" quantity="1753" date="Sat Dec 29 21:33:18 CET 2012" price="87.4" category="computer"></product>
+      <product id="a6cb9218-61cd-4389-9589-400531724725" quantity="1026" date="Sat Dec 29 21:33:18 CET 2012" price="39.1" category="ligth"></product>
+      <product id="64c3a3c0-cf34-4ee3-abd3-9d079e076abe" quantity="1520" date="Sat Dec 29 21:33:18 CET 2012" price="0.0" category="soda"></product>
+      <product id="28bc13b8-f18b-44b6-8dcf-11df461427c5" quantity="1415" date="Sat Dec 29 21:33:18 CET 2012" price="73.6" category="food"></product>
+      <product id="207edfbb-6dab-40ed-ac68-42c98d3efe1a" quantity="737" date="Sat Dec 29 21:33:18 CET 2012" price="36.8" category="printer"></product>
+      <product id="30ac032d-ffa3-482c-9e89-4f0cf9aab8f3" quantity="547" date="Sat Dec 29 21:33:18 CET 2012" price="55.2" category="printer"></product>
+      <product id="1e5b629b-f522-4320-a28f-c8c70f371291" quantity="848" date="Sat Dec 29 21:33:18 CET 2012" price="144.9" category="printer"></product>
+    </products>
+  </Body>
+</Message>

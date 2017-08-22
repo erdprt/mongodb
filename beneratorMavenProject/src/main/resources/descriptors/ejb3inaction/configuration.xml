@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+	<import defaults="true" />
+	<include
+		uri="configuration.properties" />
+
+	<bean id="BILLING_DETAILS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/BILLING_DETAILS.csv}" />
+		<property name="columns"
+			value="BILLING_ID,ACCOUNT_NUMBER,EXPIRY_DATE,ACCOUNT_TYPE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="BILLING_DETAILS_ENTITIES" count="{BILLING_DETAILS_COUNT}"
+		consumer="BILLING_DETAILS">
+
+        <variable name="creditcardtype" type="entity" source="{ftl:${resources_dir}/import.creditcardtype.csv}" distribution="random"/>
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+		<attribute name="account_number_generator" type="int" min="1" max="100" distribution="random"/>			
+
+		<id name="BILLING_ID" script="idgen" />
+		<attribute name="ACCOUNT_NUMBER" generator="org.databene.domain.finance.CreditCardNumberGenerator" />
+		<attribute name="EXPIRY_DATE" pattern="{timestamp_pattern}" />
+		<attribute name="ACCOUNT_TYPE" script="{creditcardtype.value}" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+
+	<bean id="USERS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/USERS.csv}" />
+		<property name="columns"
+			value="USER_ID,FIRST_NAME,LAST_NAME,BIRTH_DATE,USER_BILLING_ID,USER_TYPE,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="USERS_ENTITIES" count="{USERS_COUNT}"
+		consumer="USERS">
+
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+		<attribute name="account_number_generator" type="int" min="1" max="{account_max}"  distribution="random"/>			
+		<attribute name="user_billing_id_fk" type="int" min="{idMin}" max="{BILLING_DETAILS_COUNT}"  unique="true"/>		
+
+		<attribute name="USER_ID" script="idgen" />
+		<attribute name="FIRST_NAME" script="{ftl:firstname${idgen}}" />
+		<attribute name="LAST_NAME" script="{ftl:lastname${idgen}}" />
+		<attribute name="BIRTH_DATE" pattern="{date_pattern}" />
+		<attribute name="USER_BILLING_ID" script="{USERS_ENTITIES.user_billing_id_fk}" />		
+		<attribute name="USER_TYPE" pattern="(T|F)" />
+		<attribute name="OBJECT_VERSION" values="0" />
+	</generate>
+     
+	<bean id="CATEGORIES" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CATEGORIES.csv}" />
+		<property name="columns"
+			value="CATEGORY_ID,CATEGORY_NAME,CREATE_DATE,CREATED_BY,PARENT_ID,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<bean id="CATEGORIES_ITEMS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/CATEGORIES_ITEMS.csv}" />
+		<property name="columns"
+			value="CATEGORY_ID,ITEM_ID" />
+		<property name="separator" value=";" />
+	</bean>
+           
+	<generate type="CATEGORIES_ENTITIES" count="{CATEGORIES_COUNT}" consumer="CATEGORIES">
+
+		<attribute name="user_id_fk" type="int" min="{idMin}" max="{USERS_COUNT}"  distribution="random"/>
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+
+		<attribute name="CATEGORY_ID" script="idgen" />
+		<attribute name="CATEGORY_NAME" script="{ftl:CATEGORY_NAME${idgen}}" />
+		<attribute name="CREATE_DATE" pattern="{date_pattern}" />
+		<attribute name="CREATED_BY" script="{CATEGORIES_ENTITIES.user_id_fk}" />
+		<attribute name="PARENT_ID" values="" />
+		<attribute name="OBJECT_VERSION" values="0" />
+		
+	</generate>
+
+	<bean id="ITEMS" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/ITEMS.csv}" />
+		<property name="columns"
+			value="ITEM_ID,ITEM_NAME,BID_END_DATE,BID_START_DATE,CREATED_DATE,INITIAL_PRICE,SELLER_ID,OBJECT_VERSION" />
+		<property name="separator" value=";" />
+	</bean>
+
+
+	<generate type="ITEMS_ENTITIES" count="{ITEMS_COUNT}"
+		consumer="ITEMS">
+
+		<variable name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}" />
+		<attribute name="user_id_fk" type="int" min="{idMin}" max="{USERS_COUNT}"  distribution="random"/>		
+
+		<attribute name="ITEM_ID" script="idgen" />
+		<attribute name="ITEM_NAME" script="{ftl:item_name${idgen}}" />
+		<attribute name="BID_END_DATE" pattern="{timestamp_pattern}" />
+		<attribute name="BID_START_DATE" pattern="{timestamp_pattern}" />
+		<attribute name="CREATED_DATE" pattern="{timestamp_pattern}" />		
+		<attribute name="INITIAL_PRICE" type="int" min="1" max="2500" distribution="random" />
+		<attribute name="SELLER_ID" script="{ITEMS_ENTITIES.user_id_fk}" />
+		<attribute name="OBJECT_VERSION" values="0" />	
+		
+		<generate type="CATEGORIES_ITEMS_ENTITIES" count="1" consumer="CATEGORIES_ITEMS">
+
+		  <attribute name="CATEGORY_ID" type="int" min="{idMin}" max="{CATEGORIES_COUNT}"  unique="true" />		
+		  <attribute name="ITEM_ID" script="ITEMS_ENTITIES.ITEM_ID" />		
+		</generate>
+    			
+	</generate>
+
+
+
+</setup>
+

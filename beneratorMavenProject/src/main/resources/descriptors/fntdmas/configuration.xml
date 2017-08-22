@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+  <import defaults="true"/>
+  <include uri="configuration.properties" />
+  
+
+    <bean id="increment_gen" class="org.databene.benerator.primitive.IncrementGenerator"> 
+    	<property name="min" value="12"/>
+    	<property name="max" value="56"/>
+    	<property name="increment" value="1"/>
+	</bean>
+
+    <bean id="long_gen" class="org.databene.benerator.primitive.IncrementalIdGenerator"> 
+    	<property name="initial" value="12"/>
+    	<property name="increment" value="1"/>
+	</bean>
+
+
+  <bean id="tiers" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/TIERS.csv}"/>
+    <property name="columns" value="IDTIERS,NIC,COMPLEMENTNOMETAB,CODECREATION,DATECREATION,CODECESSATION,
+    								DATECESSATION,ETAT,TYPEETABLISSEMENT,DATECLOTUREEXERCICE,INDICATEURDGE,
+    								TOPEAMBRE,COMPTEENSOMMEIL,NATUREORIGINE,CODEDEPADRLOC,CODECOMADRLOC,
+    								CODEVOIEADRLOC,COMPLEMENTADRLOC,NUMEROVOIEADRLOC,INDICENUMEROADRLOC,
+    								CEDEXADRLOC,CODEAPE,OBSERVATIONS,COCHEAMBRE,MATRICULECREATEUR,
+    								MATRICULEDERNIERMODIFICATEUR,DATECREATIONTIERS,DATEMODIFICATIONTIERS,
+    								IDADRCOR,IDSJU,NOMPRENOMCORRESPONDANT,NOTELCORRESPONDANT,EMAILCORRESPONDANT"/>
+    <property name="separator" value=";"/>
+   </bean>
+
+  <generate type="tiersentities" count="{ftl:${tiers_count}}" consumer="tiers">
+                                                        
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementalIdGenerator"/>
+      
+    <variable  name="idgenIDTIERS" generator="org.databene.benerator.primitive.IncrementGenerator"  min="{ftl:${idMin}}"/>
+    <variable  name="idgenIDADRCOR" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgenIDSJU" generator="org.databene.benerator.primitive.IncrementGenerator"    min="{ftl:${idMin}}"/>
+  
+    <attribute name="IDTIERS" script="PREFIX_TIERS + COMMON + idgenIDTIERS" />
+    <attribute name="NIC" script="{ftl:NIC${idgen % 100}}" />
+    <attribute name="COMPLEMENTNOMETAB" script="{ftl:COMPLEMENTNOMETAB${idgen % 100000}}" />
+    <attribute name="CODECREATION" script="{ftl:CODECRE${idgen % 100}}" />
+    <attribute name="DATECREATION" pattern="{ftl:${date_pattern}}" />
+    <attribute name="CODECESSATION" script="{ftl:CODECES${idgen % 1000}}" />
+    <attribute name="DATECESSATION" pattern="{ftl:${date_pattern}}" />
+    <attribute name="ETAT" script="{ftl:ETAT${idgen % 10000}}" />
+    <attribute name="TYPEETABLISSEMENT" script="{ftl:ETABL${idgen % 10000}}" />
+    <attribute name="DATECLOTUREEXERCICE" pattern="{ftl:${date_pattern}}" />
+    <attribute name="INDICATEURDGE" pattern="0|1" />
+    <attribute name="TOPEAMBRE" pattern="0|1" />
+    <attribute name="COMPTEENSOMMEIL" pattern="0|1" />
+    <attribute name="NATUREORIGINE" script="{ftl:NATORIG${idgen % 100}}" />   
+	<attribute name="CODEDEPADRLOC" script="{ftl:${idgen % 1000}}" />
+	<attribute name="CODECOMADRLOC" script="{ftl:${idgen % 1000}}" />    
+	<attribute name="CODEVOIEADRLOC" script="{ftl:V${idgen % 1000}}" />
+	<attribute name="COMPLEMENTADRLOC" script="{ftl:COMPLEMENTADRLOC${idgen % 100000}}" />
+	<attribute name="NUMEROVOIEADRLOC" script="{ftl:${idgen % 1000}}" />
+	<attribute name="INDICENUMEROADRLOC" pattern="0|1" />
+	<attribute name="CEDEXADRLOC" script="{ftl:CEDEXADRLOC${idgen % 1000}}" />
+	<attribute name="CODEAPE" script="{ftl:APE${idgen % 1000}}" />
+	<attribute name="OBSERVATIONS" script="{ftl:OBSERVATIONS${idgen % 100000}}" />
+	<attribute name="COCHEAMBRE" pattern="0|1" />
+	<attribute name="MATRICULECREATEUR" script="{ftl:MATCREATEUR${idgen % 100000}}" />
+	<attribute name="MATRICULEDERNIERMODIFICATEUR" script="{ftl:MATDERMODIF${idgen % 100000}}" />
+	<attribute name="DATECREATIONTIERS" pattern="{ftl:${date_pattern}}" />
+	<attribute name="DATEMODIFICATIONTIERS" pattern="{ftl:${date_pattern}}" />
+	<attribute name="IDADRCOR" script="PREFIX_ADRCOR + COMMON + idgenIDADRCOR" />
+	<attribute name="IDSJU" script="PREFIX_SJU + COMMON + idgenIDSJU" />
+	<attribute name="NOMPRENOMCORRESPONDANT" script="{ftl:NOMPRENOMCORRESPONDANT${idgen % 100000}}" />
+	<attribute name="NOTELCORRESPONDANT" script="{ftl:NOTELCORRESP${idgen % 100000}}" />
+	<attribute name="EMAILCORRESPONDANT" script="{ftl:EMAILCORRESPONDANT${idgen % 100000}}" />
+	
+    </generate>
+
+
+  <bean id="supportjuridique" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/SUPPORTJURIDIQUE.csv}"/>
+    <property name="columns" value="IDSJU,SIREN,TITRE,RAISONSOCIALE,COMPLEMENTNOM,TOPEAMBRE,
+    								NATUREORIGINE,MATRICULECREATEUR,MATRICULEDERNIERMODIFICATEUR,
+    								DATECREATION,DATEMODIFICATION"/>
+    <property name="separator" value=";"/>
+   </bean>
+
+  <generate type="supportjuridiqueentities" count="{ftl:${supportjuridique_count}}" consumer="supportjuridique">
+  
+    <variable  name="idgenIDSJU" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>  
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+  
+	<attribute name="IDSJU" script="PREFIX_SJU + COMMON + idgenIDSJU" />  
+    <attribute name="SIREN" script="{ftl:SIREN${idgen % 10000}}" />
+    <attribute name="TITRE" script="{ftl:TITRE${idgen % 1000}}" />
+    <attribute name="RAISONSOCIALE" script="{ftl:RAISONSOCIALE${idgen % 100}}" />
+    <attribute name="COMPLEMENTNOM" script="{ftl:COMPLEMENTNOM${idgen % 100}}" />
+    <attribute name="TOPEAMBRE" pattern="0|1" />
+    <attribute name="NATUREORIGINE" script="{ftl:NATORIG${idgen % 100}}" />
+	  <attribute name="MATRICULECREATEUR" script="{ftl:MATCREATEUR${idgen % 100000}}" />
+	  <attribute name="MATRICULEDERNIERMODIFICATEUR" script="{ftl:MATDERMODIF${idgen % 100000}}" />
+    <attribute name="DATECREATION" pattern="{ftl:${date_pattern}}" />
+    <attribute name="DATEMODIFICATION" pattern="{ftl:${date_pattern}}" />
+
+    </generate>
+
+
+  <bean id="adressecorrespondance" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/ADRESSECORRESPONDANCE.csv}"/>
+    <property name="columns" value="IDADRCOR,NOMDESTINATAIRE,COMPLEMENTADRESSE,NUMEROVOIE,INDICENUMERO,TYPEVOIE,
+    								LIBELLEVOIE,CODEPOSTAL,LIBELLECOMMUNE,CEDEX,NATUREORIGINE"/>
+    <property name="separator" value=";"/>
+   </bean>
+
+  <generate type="adressecorrespondanceentities" count="{ftl:${adressecorrespondance_count}}" consumer="adressecorrespondance">
+  
+    <variable  name="idgenIDADRCOR" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>  
+  
+	  <attribute name="IDADRCOR" script="PREFIX_ADRCOR + COMMON + idgenIDADRCOR" />
+    <attribute name="NOMDESTINATAIRE" script="{ftl:NOMDESTINATAIRE${idgen % 100}}" />
+    <attribute name="COMPLEMENTADRESSE" script="{ftl:COMPLEMENTADRESSE${idgen % 100}}" />
+    <attribute name="NUMEROVOIE" script="{ftl:V${idgen % 10}}" />
+    <attribute name="INDICENUMERO" script="{ftl:${idgen % 10}}" />
+    <attribute name="TYPEVOIE" script="{ftl:TYPEVOIE${idgen % 100}}" />    
+    <attribute name="LIBELLEVOIE" script="{ftl:LIBELLEVOIE${idgen % 100}}" />
+    <attribute name="CODEPOSTAL" script="{ftl:POST${idgen % 10}}" />
+	  <attribute name="LIBELLECOMMUNE" script="{ftl:LIBELLECOMMUNE${idgen % 100000}}" />
+	  <attribute name="CEDEX" script="{ftl:CEDEX${idgen % 100}}" />
+    <attribute name="NATUREORIGINE" script="{ftl:NAT_OR${idgen % 1000}}" />
+    
+  </generate>
+
+
+  <bean id="depotvalide" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/DEPOTVALIDE.csv}"/>
+    <property name="columns" value="IDDEPOTVALIDE,ANNEEREVENUS,DATEDEPOT,NBRELIGNES1,NBRELIGNES2,
+    								MATRICULECREATEUR,DATECREATIONDEPOT,MATRICULEDERNIERMODIFICATEUR,
+    								DATEDERNMODIFICATIONDEPOT,CODESECTION246062BILATERALE,IDTIERS,IDTYPEDECL"/>
+    <property name="separator" value=";"/>
+   </bean>
+
+  <generate type="depotvalideentities" count="{ftl:${depotvalide_count}}" consumer="depotvalide">
+  
+    <variable  name="idgenIDDEPOTVALIDE" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    
+    <variable  name="idgenIDTIERS" generator="org.databene.benerator.primitive.IncrementGenerator"  min="{ftl:${idMin}}"/>
+    <variable  name="idgenIDTYPEDECL" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+  
+	<attribute name="IDDEPOTVALIDE" script="PREFIX_DEPOTVALIDE + COMMON + idgenIDDEPOTVALIDE" />
+    <attribute name="ANNEEREVENUS" pattern="{ftl:${annee_pattern}}" />
+    <attribute name="DATEDEPOT" pattern="{ftl:${date_pattern}}" />
+    <attribute name="NBRELIGNES1" type="int" min="1" max="100" distribution="random"/>
+    <attribute name="NBRELIGNES2" type="int" min="1" max="100" distribution="random"/>
+    <attribute name="MATRICULECREATEUR" script="{ftl:MATCREATEUR${idgen % 100}}" />    
+    <attribute name="DATECREATIONDEPOT" pattern="{ftl:${date_pattern}}" />
+    <attribute name="MATRICULEDERNIERMODIFICATEUR" script="{ftl:MATDERNIERMOD${idgen % 100}}" />
+    <attribute name="DATEDERNMODIFICATIONDEPOT" pattern="{ftl:${date_pattern}}" />
+    <attribute name="CODESECTION246062BILATERALE" script="{ftl:${idgen % 100}}" />
+    <attribute name="IDTIERS" script="PREFIX_TIERS + COMMON + idgenIDTIERS" />
+    <attribute name="IDTYPEDECL" script="PREFIX_TYPEDECL + COMMON + idgenIDTYPEDECL" />
+    
+  </generate>
+
+  <bean id="typedeclaration" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/TYPEDECLARATION.csv}"/>
+    <property name="columns" value="IDTYPEDECL,TYPEDEPOT,TYPEPROCEDURE,DATELIMITEDEPOT,TRAITEPARBATCH"/>
+    <property name="separator" value=";"/>
+   </bean>
+   
+  <generate type="typedeclarationentities" count="{ftl:${typedeclaration_count}}" consumer="typedeclaration">
+  
+    <variable  name="idgenIDTYPEDECL" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    
+    <attribute name="IDTYPEDECL" script="PREFIX_TYPEDECL + COMMON + idgenIDTYPEDECL" />
+    <attribute name="TYPEDEPOT" script="{ftl:DEPOT${idgen % 10000}}" />	
+    <attribute name="TYPEPROCEDURE" script="{ftl:PROC${idgen % 10000}}" />
+    <attribute name="DATELIMITEDEPOT" pattern="{ftl:${annee_pattern}}"/>
+    <attribute name="TRAITEPARBATCH" pattern="0|1"/>
+    
+  </generate>
+ 
+  <bean id="defaillance" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/DEFAILLANCE.csv}"/>
+    <property name="columns" value="IDDEFAILLANCE,ANNEECAMPAGNE,IDTYPEDECL,IDTIERS,RELANCE,CORRIGE,IMPRIME,NOMBRESLIGNES1,
+                                    DATERELANCE,MATRICULECREATEUR,DATECREATION,MATRICULEDERNIERMODIFICATEUR,
+                                    DATEDERNMODIFICATION,TYPE1,TYPE2,TYPE3"/>
+    <property name="separator" value=";"/>
+   </bean>
+   
+  <generate type="typedefaillance" count="{ftl:${defaillance_count}}" consumer="defaillance">
+  
+    <variable  name="idgenIDDEFAILLANCE" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgenIDTYPEDECL" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgenIDTIERS" generator="org.databene.benerator.primitive.IncrementGenerator"  min="{ftl:${idMin}}"/>    
+        
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator"/>
+    
+    <attribute name="IDDEFAILLANCE" script="PREFIX_DEFAILLANCE + COMMON + idgenIDDEFAILLANCE" />
+    <attribute name="ANNEECAMPAGNE" pattern="{ftl:${annee_pattern}}"/>    
+    <attribute name="IDTYPEDECL" script="PREFIX_TYPEDECL + COMMON + idgenIDTYPEDECL" />	
+    <attribute name="IDTIERS" script="PREFIX_TIERS + COMMON + idgenIDTIERS" />
+    <attribute name="RELANCE" pattern="0|1" />
+    <attribute name="CORRIGE" pattern="0|1" />
+    <attribute name="IMPRIME" pattern="0|1" />
+    <attribute name="NOMBRESLIGNES1" type="int" min="1" max="1000" distribution="random"/>    
+    <attribute name="DATERELANCE" pattern="{ftl:${date_pattern}}" />
+    <attribute name="MATRICULECREATEUR" script="{ftl:MATRICULECREA${idgen % 10000}}" />
+    <attribute name="DATECREATION" pattern="{ftl:${date_pattern}}" />    
+    <attribute name="MATRICULEDERNIERMODIFICATEUR" script="{ftl:MATDERNMOD${idgen % 10000}}" />    
+    <attribute name="DATEDERNMODIFICATION" pattern="{ftl:${date_pattern}}" />
+    <attribute name="TYPE1" pattern="0|1" />    
+    <attribute name="TYPE2" pattern="0|1" />
+    <attribute name="TYPE3" pattern="0|1" />
+   
+  </generate>
+
+
+  <bean id="statistiques" class="org.databene.platform.csv.CSVEntityExporter">
+    <property name="uri" value="{ftl:${output_dir}/STATISTIQUES.csv}"/>
+    <property name="columns" value="ID,ANNEE,IDTYPEDECLARATION,CODEDSF,CODECDI,NBRDECLARATIONS1,NBRLIGNES1,NBRDECLARATIONS2,NBRLIGNES2"/>
+    <property name="separator" value=";"/>
+   </bean>
+   
+  <generate type="typestatistiques" count="{ftl:${statistiques_count}}" consumer="statistiques">
+  
+    <variable  name="idgenID" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    <variable  name="idgen" generator="org.databene.benerator.primitive.IncrementGenerator" min="{ftl:${idMin}}"/>
+    
+    <attribute name="ID" script="PREFIX_STATISTIQUES + COMMON + idgenID" />
+    <attribute name="ANNEE" pattern="{ftl:${annee_pattern}}"/>    
+    <attribute name="IDTYPEDECLARATION" script="{ftl:DEPOT${idgen % 10000}}" />	
+    <attribute name="CODEDSF" script="{ftl:SF${idgen % 10}}" />
+    <attribute name="CODECDI" script="{ftl:CDI${idgen % 1000}}" />    
+    <attribute name="NBRDECLARATIONS1" type="int" min="1" max="1000" distribution="random"/>
+    <attribute name="NBRLIGNES1" type="int" min="1" max="1000" distribution="random"/>    
+    <attribute name="NBRDECLARATIONS2" type="int" min="1" max="1000" distribution="random"/>
+    <attribute name="NBRLIGNES2" type="int" min="1" max="1000" distribution="random"/>    
+
+    
+  </generate>
+ 
+</setup>
+

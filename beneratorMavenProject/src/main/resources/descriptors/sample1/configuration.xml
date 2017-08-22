@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns="http://databene.org/benerator/0.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd"
+  defaultEncoding="UTF-8">
+
+
+	<import defaults="true" />
+	<include
+		uri="configuration.properties" />
+
+	<bean id="customer" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/customer.csv}" />
+		<property name="columns"
+			value="customer_id,title,fname,lname,addressline,town,zipcode,phone" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<bean id="orderinfo" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/orderinfo.csv}" />
+		<property name="columns" value="orderinfo_id,customer_id,date_placed,date_shipped,shipping" />
+		<property name="separator" value=";" />
+	</bean>
+	
+	<bean id="orderline" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/orderline.csv}" />
+		<property name="columns" value="orderinfo_id,item_id,quantity" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="customerentities" count="{customer_count}" consumer="customer">
+
+		<variable name="address" generator="org.databene.domain.address.AddressGenerator" />
+		<variable name="person" generator="org.databene.domain.person.PersonGenerator" />
+
+		<id name="customer_id" generator="org.databene.benerator.primitive.IncrementGenerator" min="{idMin}" />
+		<attribute name="title" script="person.salutation" />
+		<attribute name="fname" script="person.familyName" />
+		<attribute name="lname" script="person.givenName" />
+		<attribute name="addressline" script="address.street" />
+		<attribute name="town" script="address.city.name" />
+		<attribute name="zipcode" script="address.city.areaCode" />
+		<attribute name="phone" script="address.privatePhone.localNumber"/>
+		
+		<!-- Cette valeur sert uniquement à générer, pour chaque customer, un nombre aléatoire et variable d'ordres  -->
+		<attribute name="orderinfo_loop" min="0" max="{orderinfo_count}" type="int" distribution="random" />
+		
+			<!-- Relation 1:n -->
+			<generate type="orderinfoentities" count="{customerentities.orderinfo_loop}" consumer="orderinfo">
+				<!-- LocalSequenceGenerator permet de ne pas avoir une reinitialisation à chaque nouvelle boucle (nouveau customer)  -->
+				<id name="orderinfo_id" generator="org.databene.benerator.primitive.LocalSequenceGenerator"/>
+				<attribute name="customer_id" script="customerentities.customer_id" />
+				<attribute name="date_placed" pattern="{date_pattern}" />
+				<attribute name="date_shipped" pattern="{date_pattern}" />
+				<attribute name="shipping" pattern="{float_pattern}" />
+				
+				<!-- Cette valeur sert uniquement à générer, pour chaque orderline, un nombre aléatoire et variable -->
+				<attribute name="orderline_loop" min="0" max="{orderline_count}" type="int" distribution="random" />
+				
+				<!-- Relation m:n -->
+				<generate type="orderlineentities" count="{orderinfoentities.orderline_loop}" consumer="orderline">
+					<!-- LocalSequenceGenerator permet de ne pas avoir une reinitialisation à chaque nouvelle boucle (nouveau customer)  -->
+					<attribute name="orderinfo_id" script="orderinfoentities.orderinfo_id"/>
+					<attribute name="item_id" type="int" min="{idMin}" max="{item_count}" unique="true" />
+					<attribute name="quantity" type="int" min="0" max="250" distribution="random"/>
+				</generate>
+				
+			</generate>
+	</generate>
+
+	<bean id="item" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/item.csv}" />
+		<property name="columns" value="item_id,description,cost_price,sell_price" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="stock" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/stock.csv}" />
+		<property name="columns" value="item_id,quantity" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<bean id="barcode" class="org.databene.platform.csv.CSVEntityExporter">
+		<property name="uri" value="{ftl:${output_dir}/barcode.csv}" />
+		<property name="columns" value="barcode_ean,item_id" />
+		<property name="separator" value=";" />
+	</bean>
+
+	<generate type="itementities" count="{item_count}" consumer="item">
+
+		<id name="item_id" generator="org.databene.benerator.primitive.IncrementGenerator" min="{idMin}" />
+		<attribute name="description" script="'description for item' + itementities.item_id" />
+		<attribute name="cost_price" pattern="{float_pattern}" />
+		<!-- attribute name="cost_price" type="float" min="100" max="2000" precision="0.1" /-->
+		<attribute name="sell_price" pattern="{float_pattern}" />
+		
+			<!-- Relation 1:1 -->
+			<generate type="stockentities" count="1" consumer="stock">
+				<attribute name="item_id" script="itementities.item_id" />
+				<attribute name="quantity" type="int" min="10" max="250"/>
+			</generate>
+
+			<!-- Relation 1:1 -->
+			<generate type="barcodeentities" count="1" consumer="barcode">
+				<id name="barcode_ean" generator="org.databene.domain.product.EAN13Generator" unique="true" />
+				<attribute name="item_id" script="itementities.item_id"/>
+			</generate>
+
+	</generate>
+
+
+
+
+</setup>
+
